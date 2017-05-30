@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="G4a-oM-SyO">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="A0s-41-Wnw">
+            <objects>
+                <collectionViewController id="G4a-oM-SyO" customClass="ViewController" customModule="ImageViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1Dh-Th-18y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="6" minimumInteritemSpacing="6" id="36D-nK-dOf">
+                            <size key="itemSize" width="121" height="104"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="6"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="df3-v1-K9C" customClass="ImageCell" customModule="ImageViewer" customModuleProvider="target">
+                                <rect key="frame" x="6" y="56" width="121" height="104"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="121" height="104"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="ImageCell" translatesAutoresizingMaskIntoConstraints="NO" id="Z5q-RV-pm9">
+                                            <rect key="frame" x="0.0" y="0.0" width="121" height="104"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Z5q-RV-pm9" secondAttribute="trailing" id="83N-wT-R9p"/>
+                                    <constraint firstItem="Z5q-RV-pm9" firstAttribute="top" secondItem="df3-v1-K9C" secondAttribute="top" id="M9n-h1-dqd"/>
+                                    <constraint firstAttribute="bottom" secondItem="Z5q-RV-pm9" secondAttribute="bottom" id="V0C-mB-VC3"/>
+                                    <constraint firstItem="Z5q-RV-pm9" firstAttribute="leading" secondItem="df3-v1-K9C" secondAttribute="leading" id="rUl-bC-izm"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="Z5q-RV-pm9" id="h7W-wW-oIX"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="7vX-Hw-G2K" customClass="HeaderView" customModule="ImageViewer" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwe-vK-ztd">
+                                    <rect key="frame" x="166" y="15" width="42" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="Uwe-vK-ztd" firstAttribute="centerY" secondItem="7vX-Hw-G2K" secondAttribute="centerY" id="fXW-AM-Vmc"/>
+                                <constraint firstItem="Uwe-vK-ztd" firstAttribute="centerX" secondItem="7vX-Hw-G2K" secondAttribute="centerX" id="zwP-MF-lGA"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="titleLabel" destination="Uwe-vK-ztd" id="NEK-Qn-ntm"/>
+                            </connections>
+                        </collectionReusableView>
+                        <connections>
+                            <outlet property="dataSource" destination="G4a-oM-SyO" id="9eL-qT-Ca1"/>
+                            <outlet property="delegate" destination="G4a-oM-SyO" id="YXB-fa-6Vo"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hc7-vT-g0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-228" y="-67.016491754122939"/>
+        </scene>
+    </scenes>
+</document>
