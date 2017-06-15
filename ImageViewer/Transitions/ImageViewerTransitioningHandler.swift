@@ -1,35 +1,23 @@
 import UIKit
 
 final class ImageViewerTransitioningHandler: NSObject {
+    fileprivate let presentationTransition: ImageViewerPresentationTransition
     fileprivate let dismissalTransition: ImageViewerDismissalTransition
-    fileprivate let toImageView: UIImageView
-    fileprivate let fromImageView: UIImageView
+    let dismissalInteractor: ImageViewerDismissalInteractor
     
     var dismissInteractively = false
     
     init(fromImageView: UIImageView, toImageView: UIImageView) {
+        self.presentationTransition = ImageViewerPresentationTransition(fromImageView: fromImageView)
         self.dismissalTransition = ImageViewerDismissalTransition(fromImageView: toImageView, toImageView: fromImageView)
-        self.fromImageView = fromImageView
-        self.toImageView = toImageView
+        self.dismissalInteractor = ImageViewerDismissalInteractor(transition: dismissalTransition)
         super.init()
-    }
-    
-    func updateInteractiveTransition(transform: CGAffineTransform) {
-        dismissalTransition.updateTranslation(transform: transform)
-    }
-    
-    func updateInteractiveTransition(percentage: CGFloat) {
-        dismissalTransition.updatePercentage(percentage)
-    }
-    
-    func finishInteractiveTransition() {
-        dismissalTransition.finishTransition()
     }
 }
 
 extension ImageViewerTransitioningHandler: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ImageViewerPresentationTransition(fromImageView: fromImageView)
+        return presentationTransition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -37,6 +25,6 @@ extension ImageViewerTransitioningHandler: UIViewControllerTransitioningDelegate
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return dismissInteractively ? dismissalTransition : nil
+        return dismissInteractively ? dismissalInteractor : nil
     }
 }

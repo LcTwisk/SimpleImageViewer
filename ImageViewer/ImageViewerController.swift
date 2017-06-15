@@ -103,7 +103,6 @@ private extension ImageViewerController {
     }
     
     @IBAction func closeButtonPressed() {
-        transitionHandler?.dismissInteractively = false
         dismiss(animated: true)
     }
     
@@ -124,11 +123,11 @@ private extension ImageViewerController {
             transitionHandler?.dismissInteractively = true
             dismiss(animated: true)
         case .changed:
-            transitionHandler?.updateInteractiveTransition(percentage: percentage)
-            transitionHandler?.updateInteractiveTransition(transform: CGAffineTransform(translationX: translation.x, y: translation.y))
+            transitionHandler?.dismissalInteractor.update(percentage: percentage)
+            transitionHandler?.dismissalInteractor.update(transform: CGAffineTransform(translationX: translation.x, y: translation.y))
         case .ended, .cancelled:
-            transitionHandler?.finishInteractiveTransition()
-        case .failed: break
+            transitionHandler?.dismissInteractively = false
+            transitionHandler?.dismissalInteractor.finish()
         default: break
         }
     }

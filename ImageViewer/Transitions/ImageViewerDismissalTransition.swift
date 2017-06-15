@@ -1,6 +1,6 @@
 import UIKit
 
-final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning {
+final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTransitioning {
     fileprivate var transitionContext: UIViewControllerContextTransitioning?
     
     fileprivate let fromImageView: UIImageView
@@ -24,11 +24,11 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         super.init()
     }
     
-    func updateTranslation(transform: CGAffineTransform) {
+    func update(transform: CGAffineTransform) {
         translationTransform = transform
     }
     
-    func updatePercentage(_ percentage: CGFloat) {
+    func update(percentage: CGFloat) {
         let invertedPercentage = 1.0 - percentage
         fadeView.alpha = invertedPercentage
         scaleTransform = CGAffineTransform(scaleX: invertedPercentage, y: invertedPercentage)
@@ -39,15 +39,36 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        startTransition(transitionContext)
-        finishTransition()
+        start(transitionContext)
+        finish()
+    }
+
+    func start(_ transitionContext: UIViewControllerContextTransitioning) {
+        self.transitionContext = transitionContext
+        
+        let container = transitionContext.containerView
+        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else { return }
+        guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else { return }
+        guard let image = toImageView.image else { return }
+        
+        fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)
+        
+        animatableImageview.image = image
+        animatableImageview.frame = container.bounds
+        animatableImageview.contentMode = .scaleAspectFit
+        
+        fadeView.frame = container.bounds
+        fadeView.backgroundColor = .black
+        
+        fromView?.isHidden = true
+        toView.frame = transitionContext.finalFrame(for: toViewController)
+        
+        container.addSubview(toView)
+        container.addSubview(fadeView)
+        container.addSubview(animatableImageview)
     }
     
-    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        startTransition(transitionContext)
-    }
-    
-    func finishTransition() {
+    func finish() {
         guard let parentView = toImageView.superview else { return }
         UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, options: .curveEaseInOut,  animations: {
             self.animatableImageview.contentMode = self.toImageView.contentMode
@@ -65,32 +86,6 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
 }
 
 private extension ImageViewerDismissalTransition {
-    func startTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        self.transitionContext = transitionContext
-        
-        let container = transitionContext.containerView
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else { return }
-        guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else { return }
-        guard let image = toImageView.image else { return }
-        
-        fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)
-        
-        animatableImageview.image = image
-        animatableImageview.frame = container.bounds
-        animatableImageview.contentMode = .scaleAspectFit
-        
-        fadeView.frame = container.bounds
-        fadeView.backgroundColor = .black
-        fadeView.alpha = 1.0
-        
-        fromView?.isHidden = true
-        toView.frame = transitionContext.finalFrame(for: toViewController)
-        
-        container.addSubview(toView)
-        container.addSubview(fadeView)
-        container.addSubview(animatableImageview)
-    }
-    
     func updateTransform() {
         animatableImageview.transform = scaleTransform.concatenating(translationTransform)
     }
