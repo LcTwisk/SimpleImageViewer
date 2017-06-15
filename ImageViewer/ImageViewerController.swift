@@ -15,15 +15,20 @@ public final class ImageViewerController: UIViewController {
     fileprivate var imageBlock: ImageBlock?
     fileprivate var image: UIImage?
     fileprivate var fromImageView: UIImageView?
-    
+        
     public init(image: UIImage?) {
-        self.image = image
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
+        self.image = image
     }
     
     convenience public init(imageView: UIImageView) {
         self.init(image: imageView.image)
         self.fromImageView = imageView
+    }
+    
+    convenience public init(image: UIImage?, imageBlock: @escaping ImageBlock) {
+        self.init(image: image)
+        self.imageBlock = imageBlock
     }
     
     convenience public init(imageView: UIImageView, imageBlock: @escaping ImageBlock) {
@@ -37,7 +42,6 @@ public final class ImageViewerController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
         imageView.image = image
         setupScrollView()
         setupGestureRecognizers()
@@ -53,7 +57,7 @@ extension ImageViewerController: UIScrollViewDelegate {
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         guard let image = image else { return }
-        let imageViewSize = AVMakeRect(aspectRatio: image.size, insideRect: imageView.frame)
+        let imageViewSize = Utilities.aspectFitRect(forSize: image.size, insideRect: imageView.frame)
         let verticalInsets = -(scrollView.contentSize.height - max(imageViewSize.height, scrollView.bounds.height)) / 2
         let horizontalInsets = -(scrollView.contentSize.width - max(imageViewSize.width, scrollView.bounds.width)) / 2
         scrollView.contentInset = UIEdgeInsets(top: verticalInsets, left: horizontalInsets, bottom: verticalInsets, right: horizontalInsets)
@@ -92,7 +96,6 @@ private extension ImageViewerController {
     
     func setupActivityIndicator() {
         guard let block = imageBlock else { return }
-        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         block { [weak self] image in
             DispatchQueue.main.async {

@@ -1,5 +1,4 @@
 import UIKit
-import AVFoundation
 
 final class AnimatableImageView: UIView {
     fileprivate let imageView = UIImageView()
@@ -41,97 +40,44 @@ private extension AnimatableImageView {
     func update() {
         switch contentMode {
         case .scaleToFill:
-            updateViewToScaleToFill()
+            imageView.bounds = Utilities.rect(forSize: bounds.size)
+            imageView.center = Utilities.center(forSize: bounds.size)
         case .scaleAspectFit:
-            updateViewToAspectFit()
+            imageView.bounds = Utilities.aspectFitRect(forSize: image.size, insideRect: bounds)
+            imageView.center = Utilities.center(forSize: bounds.size)
         case .scaleAspectFill:
-            updateViewToAspectFill()
+            imageView.bounds = Utilities.aspectFillRect(forSize: image.size, insideRect: bounds)
+            imageView.center = Utilities.center(forSize: bounds.size)
         case .redraw:
-            updateViewToScaleToFill()
+            imageView.bounds = Utilities.aspectFillRect(forSize: image.size, insideRect: bounds)
+            imageView.center = Utilities.center(forSize: bounds.size)
         case .center:
-            updateViewToCenter()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.center(forSize: bounds.size)
         case .top:
-            updateViewToTop()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.centerTop(forSize: image.size, insideSize: bounds.size)
         case .bottom:
-            updateViewToBottom()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.centerBottom(forSize: image.size, insideSize: bounds.size)
         case .left:
-            updateViewToLeft()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.centerLeft(forSize: image.size, insideSize: bounds.size)
         case .right:
-            updateViewToRight()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.centerRight(forSize: image.size, insideSize: bounds.size)
         case .topLeft:
-            updateViewToTopLeft()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.topLeft(forSize: image.size, insideSize: bounds.size)
         case .topRight:
-            updateViewToTopRight()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.topRight(forSize: image.size, insideSize: bounds.size)
         case .bottomLeft:
-            updateViewToBottomLeft()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.bottomLeft(forSize: image.size, insideSize: bounds.size)
         case .bottomRight:
-            updateViewToBottomRight()
+            imageView.bounds = Utilities.rect(forSize: image.size)
+            imageView.center = Utilities.bottomRight(forSize: image.size, insideSize: bounds.size)
         }
-    }
-    
-    func updateViewToScaleToFill() {
-        imageView.bounds = CGRect(x: 0, y: 0, width: bounds.size.width, height: bounds.size.height)
-        imageView.center = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-    }
-    
-    func updateViewToAspectFit() {
-        imageView.bounds = AVMakeRect(aspectRatio: image.size, insideRect: bounds)
-        imageView.center = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-    }
-    
-    func updateViewToAspectFill() {
-        let imageRatio = image.size.width / image.size.height
-        let insideRectRatio = bounds.width / bounds.height
-        if imageRatio > insideRectRatio {
-            imageView.bounds = CGRect(x: 0, y: 0, width: bounds.height * imageRatio, height: bounds.height)
-        } else {
-            imageView.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.width / imageRatio)
-        }
-        imageView.center = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-    }
-    
-    func updateViewToCenter() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-    }
-    
-    func updateViewToTop() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: bounds.size.width / 2, y: image.size.height / 2)
-    }
-    
-    func updateViewToBottom() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: bounds.size.width / 2, y: bounds.size.height - image.size.height / 2)
-    }
-    
-    func updateViewToLeft() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: image.size.width / 2, y: bounds.size.height / 2)
-    }
-    
-    func updateViewToRight() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: bounds.size.width - image.size.width / 2, y: bounds.size.height / 2)
-    }
-    
-    func updateViewToTopLeft() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: image.size.width / 2, y: image.size.height / 2)
-    }
-    
-    func updateViewToTopRight() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: bounds.size.width - image.size.width / 2, y: image.size.height / 2)
-    }
-    
-    func updateViewToBottomLeft() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: image.size.width / 2, y: bounds.size.height - image.size.height / 2)
-    }
-    
-    func updateViewToBottomRight() {
-        imageView.bounds = CGRect(origin: .zero, size: image.size)
-        imageView.center = CGPoint(x: bounds.size.width - image.size.width / 2, y: bounds.size.height - image.size.height / 2)
     }
 }
