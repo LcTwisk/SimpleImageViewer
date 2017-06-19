@@ -12,6 +12,7 @@
 		A02EE5D71EF1897D000EAB41 /* UtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02EE5D61EF1897D000EAB41 /* UtilitiesTests.swift */; };
 		A02EE5D91EF1897D000EAB41 /* SimpleImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF70A71EDC5B1400109F6E /* SimpleImageViewer.framework */; };
 		A02EE5DF1EF189B4000EAB41 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02EE5CD1EF172C3000EAB41 /* Utilities.swift */; };
+		A05E9FA51EF7FB640024CF47 /* ImageViewerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E9FA41EF7FB640024CF47 /* ImageViewerConfiguration.swift */; };
 		A07E76D71ECC94A400B77D46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07E76D61ECC94A400B77D46 /* AppDelegate.swift */; };
 		A07E76D91ECC94A400B77D46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07E76D81ECC94A400B77D46 /* ViewController.swift */; };
 		A07E76DE1ECC94A400B77D46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07E76DD1ECC94A400B77D46 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		A02EE5D41EF1897D000EAB41 /* SimpleImageViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleImageViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02EE5D61EF1897D000EAB41 /* UtilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTests.swift; sourceTree = "<group>"; };
 		A02EE5D81EF1897D000EAB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A05E9FA41EF7FB640024CF47 /* ImageViewerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerConfiguration.swift; sourceTree = "<group>"; };
 		A07E76D31ECC94A400B77D46 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07E76D61ECC94A400B77D46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A07E76D81ECC94A400B77D46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				A07E76ED1ECC959700B77D46 /* ImageViewerController.xib */,
 				A07E76EB1ECC94EA00B77D46 /* ImageViewerController.swift */,
+				A05E9FA41EF7FB640024CF47 /* ImageViewerConfiguration.swift */,
 			);
 			name = ImageViewerController;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				A0BF70B61EDC758300109F6E /* ImageViewerDismissalTransition.swift in Sources */,
 				A0BF70B71EDC758300109F6E /* ImageViewerController.swift in Sources */,
 				A08B781D1EF1684600F8C5BC /* ImageViewerDismissalInteractor.swift in Sources */,
+				A05E9FA51EF7FB640024CF47 /* ImageViewerConfiguration.swift in Sources */,
 				A0BF70B81EDC758300109F6E /* AnimatableImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

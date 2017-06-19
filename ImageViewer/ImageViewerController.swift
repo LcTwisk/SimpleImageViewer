@@ -1,9 +1,6 @@
 import UIKit
 import AVFoundation
 
-public typealias ImageCompletion = (UIImage?) -> Void
-public typealias ImageBlock = (@escaping ImageCompletion) -> Void
-
 public final class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var imageView: UIImageView!
@@ -15,25 +12,16 @@ public final class ImageViewerController: UIViewController {
     fileprivate var imageBlock: ImageBlock?
     fileprivate var image: UIImage?
     fileprivate var fromImageView: UIImageView?
-        
-    public init(image: UIImage?) {
+    
+    public override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    public init(configuration: ImageViewerConfiguration?) {
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
-        self.image = image
-    }
-    
-    convenience public init(imageView: UIImageView) {
-        self.init(image: imageView.image)
-        self.fromImageView = imageView
-    }
-    
-    convenience public init(image: UIImage?, imageBlock: @escaping ImageBlock) {
-        self.init(image: image)
-        self.imageBlock = imageBlock
-    }
-    
-    convenience public init(imageView: UIImageView, imageBlock: @escaping ImageBlock) {
-        self.init(imageView: imageView)
-        self.imageBlock = imageBlock
+        image = configuration?.image
+        fromImageView = configuration?.imageView
+        imageBlock = configuration?.imageBlock
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -42,7 +30,7 @@ public final class ImageViewerController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
+        imageView.image = fromImageView?.image ?? image
         setupScrollView()
         setupGestureRecognizers()
         setupTransitions()
@@ -135,5 +123,4 @@ private extension ImageViewerController {
         }
     }
 }
-
 
