@@ -14,9 +14,12 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let container = transitionContext.containerView
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else { return }
-        guard let parentView = fromImageView.superview else { return }
-        guard let image = fromImageView.image else { return }
+        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to),
+            let parentView = fromImageView.superview,
+            let image = fromImageView.image else {
+            transitionContext.completeTransition(true)
+            return
+        }
         
         let imageView = AnimatableImageView(image: image)
         imageView.frame = parentView.convert(fromImageView.frame, to: UIScreen.main.coordinateSpace)

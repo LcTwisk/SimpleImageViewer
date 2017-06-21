@@ -22,6 +22,10 @@ public final class ImageViewerController: UIViewController {
         image = configuration?.image
         fromImageView = configuration?.imageView
         imageBlock = configuration?.imageBlock
+        
+        modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
+        modalPresentationCapturesStatusBarAppearance = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -31,6 +35,7 @@ public final class ImageViewerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = fromImageView?.image ?? image
+        
         setupScrollView()
         setupGestureRecognizers()
         setupTransitions()
@@ -44,7 +49,7 @@ extension ImageViewerController: UIScrollViewDelegate {
     }
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        guard let image = image else { return }
+        guard let image = imageView.image else { return }
         let imageViewSize = Utilities.aspectFitRect(forSize: image.size, insideRect: imageView.frame)
         let verticalInsets = -(scrollView.contentSize.height - max(imageViewSize.height, scrollView.bounds.height)) / 2
         let horizontalInsets = -(scrollView.contentSize.width - max(imageViewSize.width, scrollView.bounds.width)) / 2
@@ -76,9 +81,8 @@ private extension ImageViewerController {
     }
     
     func setupTransitions() {
-        modalTransitionStyle = .crossDissolve
         guard let imageView = fromImageView else { return }
-        transitionHandler = ImageViewerTransitioningHandler(fromImageView: imageView, toImageView: imageView)
+        transitionHandler = ImageViewerTransitioningHandler(fromImageView: imageView, toImageView: self.imageView)
         transitioningDelegate = transitionHandler
     }
     
@@ -107,18 +111,24 @@ private extension ImageViewerController {
     
     @objc func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: imageView)
-        let percentage = (abs(translation.y) / imageView.bounds.height) * 0.5
+        let velocity = recognizer.velocity(in: imageView)
         
         switch recognizer.state {
         case .began:
             transitionHandler?.dismissInteractively = true
             dismiss(animated: true)
         case .changed:
+            let percentage = abs(translation.y) / imageView.bounds.height
             transitionHandler?.dismissalInteractor.update(percentage: percentage)
             transitionHandler?.dismissalInteractor.update(transform: CGAffineTransform(translationX: translation.x, y: translation.y))
         case .ended, .cancelled:
             transitionHandler?.dismissInteractively = false
-            transitionHandler?.dismissalInteractor.finish()
+            let percentage = abs(translation.y + velocity.y) / imageView.bounds.height
+            if percentage > 0.25 {
+                transitionHandler?.dismissalInteractor.finish()
+            } else {
+                transitionHandler?.dismissalInteractor.cancel()
+            }
         default: break
         }
     }

@@ -10,6 +10,11 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
     fileprivate var fromView: UIView?
     fileprivate var fadeView = UIView()
     
+    enum TransitionState {
+        case start
+        case end
+    }
+    
     fileprivate var translationTransform: CGAffineTransform = CGAffineTransform.identity {
         didSet { updateTransform() }
     }
@@ -47,12 +52,17 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         self.transitionContext = transitionContext
         
         let container = transitionContext.containerView
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else { return }
-        guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else { return }
-        guard let image = toImageView.image else { return }
+        guard
+            let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from),
+            let image = toImageView.image else {
+                transitionContext.completeTransition(true)
+                return
+        }
         
-        fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)
+        self.fromView = fromView
         
+        fromView.isHidden = true
+        transitionContext.view(forKey: UITransitionContextViewKey.to)?.isHidden = false
         animatableImageview.image = image
         animatableImageview.frame = container.bounds
         animatableImageview.contentMode = .scaleAspectFit
@@ -60,27 +70,35 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         fadeView.frame = container.bounds
         fadeView.backgroundColor = .black
         
-        fromView?.isHidden = true
-        toView.frame = transitionContext.finalFrame(for: toViewController)
-        
-        container.addSubview(toView)
         container.addSubview(fadeView)
         container.addSubview(animatableImageview)
     }
     
+    func cancel() {
+        transitionContext?.cancelInteractiveTransition()
+        UIView.animate(withDuration: transitionDuration(using: transitionContext),
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: apply(state: .start),
+                       completion: { completed in
+                        self.fromView?.isHidden = false
+                        self.animatableImageview.removeFromSuperview()
+                        self.fadeView.removeFromSuperview()
+                        self.transitionContext?.completeTransition(false)
+        })
+    }
+    
     func finish() {
-        guard let parentView = toImageView.superview else { return }
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, options: .curveEaseInOut,  animations: {
-            self.animatableImageview.contentMode = self.toImageView.contentMode
-            self.animatableImageview.transform = CGAffineTransform.identity
-            self.animatableImageview.frame = parentView.convert(self.toImageView.frame, to: UIScreen.main.coordinateSpace)
-            self.fadeView.alpha = 0.0
-        }, completion: { completed in
-            self.toImageView.isHidden = false
-            self.fadeView.removeFromSuperview()
-            self.animatableImageview.removeFromSuperview()
-            self.fromView?.removeFromSuperview()
-            self.transitionContext?.completeTransition(completed)
+        UIView.animate(withDuration: transitionDuration(using: transitionContext),
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: apply(state: .end),
+                       completion: { completed in
+                        self.toImageView.isHidden = false
+                        self.fadeView.removeFromSuperview()
+                        self.animatableImageview.removeFromSuperview()
+                        self.fromView?.removeFromSuperview()
+                        self.transitionContext?.completeTransition(completed)
         })
     }
 }
@@ -88,5 +106,22 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
 private extension ImageViewerDismissalTransition {
     func updateTransform() {
         animatableImageview.transform = scaleTransform.concatenating(translationTransform)
+    }
+    
+    func apply(state: TransitionState) -> () -> Void  {
+        return {
+            switch state {
+            case .start:
+                self.animatableImageview.contentMode = .scaleAspectFit
+                self.animatableImageview.transform = .identity
+                self.animatableImageview.frame = self.fromImageView.frame
+                self.fadeView.alpha = 1.0
+            case .end:
+                self.animatableImageview.contentMode = self.toImageView.contentMode
+                self.animatableImageview.transform = .identity
+                self.animatableImageview.frame = self.toImageView.superview!.convert(self.toImageView.frame, to: UIScreen.main.coordinateSpace)
+                self.fadeView.alpha = 0.0
+            }
+        }
     }
 }

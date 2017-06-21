@@ -20,6 +20,10 @@ final class ImageViewerDismissalInteractor: NSObject, UIViewControllerInteractiv
         transition.update(percentage: percentage)
     }
     
+    func cancel() {
+        transition.cancel()
+    }
+    
     func finish() {
         transition.finish()
     }

@@ -3,6 +3,7 @@ import UIKit
 final class ImageViewerTransitioningHandler: NSObject {
     fileprivate let presentationTransition: ImageViewerPresentationTransition
     fileprivate let dismissalTransition: ImageViewerDismissalTransition
+    
     let dismissalInteractor: ImageViewerDismissalInteractor
     
     var dismissInteractively = false
