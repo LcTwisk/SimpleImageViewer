@@ -54,7 +54,7 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         let container = transitionContext.containerView
         guard
             let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from),
-            let image = toImageView.image else {
+            let image = fromImageView.image ?? toImageView.image else {
                 transitionContext.completeTransition(true)
                 return
         }
