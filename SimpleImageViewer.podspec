@@ -10,5 +10,6 @@ Pod::Spec.new do |s|
   s.homepage = "https://github.com/aFrogleap/SimpleImageViewer"
   s.source = { :git => "https://github.com/aFrogleap/SimpleImageViewer.git",:branch => "development", :tag => "#{s.version}"}
   s.framework = "UIKit"
-  s.source_files = "SimpleImageViewer/ImageViewer/"
+  s.source_files = "ImageViewer/**/*.{swift}"
+  s.resources = "ImageViewer/**/*.{xib}"
 end
