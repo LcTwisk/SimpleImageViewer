@@ -8,7 +8,13 @@ A snappy image viewer with zoom and interactive dismissal transition.
 
 ![Single image view](https://github.com/aFrogleap/SimpleImageViewer/blob/development/Documentation/example.gif)
 
+## Features
 
+- [x] Double tap to zoom in/out
+- [x] Interactive dismissal transition
+- [x] Animate in from thumbnail image or fade in
+- [x] Show activity indicator until image block is returned with new image
+- [x] Animate from thumbnail image view with all kinds of [content modes](https://developer.apple.com/documentation/uikit/uiviewcontentmode)
 
 ## Get started!
 
@@ -22,7 +28,6 @@ github "aFrogleap/SimpleImageViewer" "development"
 pod 'SimpleImageViewer', :git => 'https://github.com/aFrogleap/SimpleImageViewer.git', :branch => 'development'
 ```
 ## Sample Usage
-
 ```swift
 let configuration = ImageViewerConfiguration { config in
     config.imageView = someImageView
@@ -33,6 +38,11 @@ let imageViewerController = ImageViewerController(configuration: configuration)
 present(imageViewerController, animated: true)
 
 ```
+
+## Communication
+- If you **found a bug**, open an issue.
+- If you **have a feature request**, open an issue.
+- If you **want to contribute**, submit a pull request.
 
 ## License
 
