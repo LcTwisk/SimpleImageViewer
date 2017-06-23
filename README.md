@@ -19,14 +19,31 @@ A snappy image viewer with zoom and interactive dismissal transition.
 ## Get started!
 
 ### Carthage
-```ruby
+
+To install SimpleImageViewer into your Xcode project using [Carthage](https://github.com/Carthage/Carthage), specify it in your `Cartfile`:
+
+```ogdl
 github "aFrogleap/SimpleImageViewer" "development"
 ```
 
 ### Cocoapods
+
+To install SimpleImageViewer into your Xcode project using [CocoaPods](http://cocoapods.org), specify it in your `Podfile`:
+
 ```ruby
 pod 'SimpleImageViewer', :git => 'https://github.com/aFrogleap/SimpleImageViewer.git', :branch => 'development'
 ```
+
+### Swift Package Manager
+
+To install SimpleImageViewer into your Xcode project using [Swift Package Manager](https://swift.org/package-manager), specify it in your `Package.swift` file:
+
+```swift
+dependencies: [
+    .Package(url: "https://github.com/aFrogleap/SimpleImagesViewer.git", majorVersion: 0)
+]
+```
+
 ## Sample Usage
 ```swift
 let configuration = ImageViewerConfiguration { config in

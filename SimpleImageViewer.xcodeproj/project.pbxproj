@@ -64,6 +64,7 @@
 		A02EE5D41EF1897D000EAB41 /* SimpleImageViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleImageViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02EE5D61EF1897D000EAB41 /* UtilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTests.swift; sourceTree = "<group>"; };
 		A02EE5D81EF1897D000EAB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A03DAD4E1EFCFF030060DF69 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
 		A05E9FA41EF7FB640024CF47 /* ImageViewerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerConfiguration.swift; sourceTree = "<group>"; };
 		A07E76D31ECC94A400B77D46 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07E76D61ECC94A400B77D46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +143,7 @@
 		A07E76CA1ECC94A400B77D46 = {
 			isa = PBXGroup;
 			children = (
+				A03DAD4E1EFCFF030060DF69 /* Package.swift */,
 				A07E76D51ECC94A400B77D46 /* Example */,
 				A0BF70A81EDC5B1400109F6E /* SimpleImageViewer */,
 				A02EE5D51EF1897D000EAB41 /* SimpleImageViewerTests */,
