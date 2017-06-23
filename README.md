@@ -1,4 +1,4 @@
-![SimpleImageViewer](https://raw.githubusercontent.com/aFrogleap/SimpleImageViewer/Documentation/banner.png)
+![SimpleImageViewer](https://github.com/aFrogleap/SimpleImageViewer/blob/development/Documentation/banner.png)
 [![Swift 3.1](https://img.shields.io/badge/Swift-3.1-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/SimpleImageViewer.svg?style=flat)](http://cocoadocs.org/docsets/SimpleImageViewer)
