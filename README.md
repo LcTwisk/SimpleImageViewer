@@ -40,7 +40,7 @@ To install SimpleImageViewer into your Xcode project using [Swift Package Manage
 
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/aFrogleap/SimpleImagesViewer.git", majorVersion: 0)
+    .Package(url: "https://github.com/aFrogleap/SimpleImageViewer.git", majorVersion: 0)
 ]
 ```
 
