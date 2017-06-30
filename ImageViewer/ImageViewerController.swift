@@ -9,19 +9,15 @@ public final class ImageViewerController: UIViewController {
     fileprivate let tapGestureRecognizer = UITapGestureRecognizer()
     fileprivate let panGestureRecognizer = UIPanGestureRecognizer()
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
-    fileprivate var imageBlock: ImageBlock?
-    fileprivate var image: UIImage?
-    fileprivate var fromImageView: UIImageView?
+    fileprivate let configuration: ImageViewerConfiguration?
     
     public override var prefersStatusBarHidden: Bool {
         return true
     }
     
     public init(configuration: ImageViewerConfiguration?) {
+        self.configuration = configuration
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
-        image = configuration?.image
-        fromImageView = configuration?.imageView
-        imageBlock = configuration?.imageBlock
         
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
@@ -34,7 +30,7 @@ public final class ImageViewerController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = fromImageView?.image ?? image
+        imageView.image = configuration?.imageView?.image ?? configuration?.image
         
         setupScrollView()
         setupGestureRecognizers()
@@ -81,13 +77,13 @@ private extension ImageViewerController {
     }
     
     func setupTransitions() {
-        guard let imageView = fromImageView else { return }
+        guard let imageView = configuration?.imageView else { return }
         transitionHandler = ImageViewerTransitioningHandler(fromImageView: imageView, toImageView: self.imageView)
         transitioningDelegate = transitionHandler
     }
     
     func setupActivityIndicator() {
-        guard let block = imageBlock else { return }
+        guard let block = configuration?.imageBlock else { return }
         activityIndicator.startAnimating()
         block { [weak self] image in
             DispatchQueue.main.async {
