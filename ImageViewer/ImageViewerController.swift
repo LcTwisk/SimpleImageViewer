@@ -6,8 +6,6 @@ public final class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var imageView: UIImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
     
-    fileprivate let tapGestureRecognizer = UITapGestureRecognizer()
-    fileprivate let panGestureRecognizer = UIPanGestureRecognizer()
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
     fileprivate let configuration: ImageViewerConfiguration?
     
@@ -67,10 +65,12 @@ private extension ImageViewerController {
     }
     
     func setupGestureRecognizers() {
+        let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.numberOfTapsRequired = 2
         tapGestureRecognizer.addTarget(self, action: #selector(imageViewDoubleTapped))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         
+        let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(self, action: #selector(imageViewPanned(_:)))
         panGestureRecognizer.delegate = self
         imageView.addGestureRecognizer(panGestureRecognizer)
@@ -86,6 +86,7 @@ private extension ImageViewerController {
         guard let block = configuration?.imageBlock else { return }
         activityIndicator.startAnimating()
         block { [weak self] image in
+            guard let image = image else { return }
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 self?.imageView.image = image
@@ -106,6 +107,8 @@ private extension ImageViewerController {
     }
     
     @objc func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
+        guard transitionHandler != nil else { return }
+            
         let translation = recognizer.translation(in: imageView)
         let velocity = recognizer.velocity(in: imageView)
         
