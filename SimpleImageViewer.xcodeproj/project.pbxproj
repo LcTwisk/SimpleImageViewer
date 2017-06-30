@@ -188,9 +188,9 @@
 		A08B781E1EF16CCF00F8C5BC /* ImageViewerController */ = {
 			isa = PBXGroup;
 			children = (
-				A07E76ED1ECC959700B77D46 /* ImageViewerController.xib */,
-				A07E76EB1ECC94EA00B77D46 /* ImageViewerController.swift */,
 				A05E9FA41EF7FB640024CF47 /* ImageViewerConfiguration.swift */,
+				A07E76EB1ECC94EA00B77D46 /* ImageViewerController.swift */,
+				A07E76ED1ECC959700B77D46 /* ImageViewerController.xib */,
 			);
 			name = ImageViewerController;
 			sourceTree = "<group>";

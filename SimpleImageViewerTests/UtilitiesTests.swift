@@ -171,13 +171,4 @@ class UtilitiesTests: XCTestCase {
         XCTAssertEqual(expectedBottomRightForLandscape, Utilities.bottomRight(forSize: landscape, insideSize: screenRect.size))
         XCTAssertEqual(expectedBottomRightForPortrait, Utilities.bottomRight(forSize: portrait, insideSize: screenRect.size))
     }
-    
-    /* */
-    
-    func test_shouldCalculateWhereTheBottomRightEndsUp(){
-        let portrait = CGSize(width: 900, height: 1600)
-        let expectedBottomRightForPortrait = CGPoint(x: 190, y: 160)
-        
-        XCTAssertEqual(expectedBottomRightForPortrait, Utilities.bottomRight(forSize: portrait, insideSize: screenRect.size))
-    }
 }
