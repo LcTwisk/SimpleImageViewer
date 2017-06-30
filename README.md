@@ -63,6 +63,6 @@ present(imageViewerController, animated: true)
 
 ## License
 
-t.b.a.
+SimpleImageViewer is available under the MIT license. See the LICENSE file for more info.
 
 Copyright (c) 2017 aFrogleap
