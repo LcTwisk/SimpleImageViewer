@@ -13,33 +13,34 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let container = transitionContext.containerView
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to),
-            let parentView = fromImageView.superview,
-            let image = fromImageView.image else {
-            transitionContext.completeTransition(true)
-            return
-        }
-        
-        let imageView = AnimatableImageView(image: image)
-        imageView.frame = parentView.convert(fromImageView.frame, to: UIScreen.main.coordinateSpace)
+        let containerView = transitionContext.containerView
+        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
+        let fromParentView = fromImageView.superview!
+
+        let imageView = AnimatableImageView()
+        imageView.image = fromImageView.image
+        imageView.frame = fromParentView.convert(fromImageView.frame, to: nil)
         imageView.contentMode = fromImageView.contentMode
         
-        let fadeView = UIView(frame: container.bounds)
+        let fadeView = UIView(frame: containerView.bounds)
         fadeView.backgroundColor = .black
         fadeView.alpha = 0.0
         
-        toView.frame = container.bounds
+        toView.frame = containerView.bounds
         toView.isHidden = true
         fromImageView.isHidden = true
         
-        container.addSubview(toView)
-        container.addSubview(fadeView)
-        container.addSubview(imageView)
+        containerView.addSubview(toView)
+        containerView.addSubview(fadeView)
+        containerView.addSubview(imageView)
         
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut,  animations: {
+        UIView.animate(withDuration: transitionDuration(using: transitionContext),
+                       delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseOut,  animations: {
             imageView.contentMode = .scaleAspectFit
-            imageView.frame = container.bounds
+            imageView.frame = containerView.bounds
             fadeView.alpha = 1.0
         }, completion: { _ in
             toView.isHidden = false

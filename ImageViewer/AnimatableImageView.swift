@@ -11,7 +11,7 @@ final class AnimatableImageView: UIView {
         didSet { update() }
     }
     
-    var image: UIImage = UIImage() {
+    var image: UIImage? {
         didSet {
             imageView.image = image
             update()
@@ -25,12 +25,6 @@ final class AnimatableImageView: UIView {
         imageView.contentMode = .scaleToFill
     }
     
-    convenience init(image: UIImage) {
-        self.init()
-        self.image = image
-        self.imageView.image = image
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,6 +32,8 @@ final class AnimatableImageView: UIView {
 
 private extension AnimatableImageView {
     func update() {
+        guard let image = image else { return }
+        
         switch contentMode {
         case .scaleToFill:
             imageView.bounds = Utilities.rect(forSize: bounds.size)
