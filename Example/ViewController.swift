@@ -40,15 +40,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ImageCell
-        let block = { (completion: @escaping ImageCompletion) in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                return completion(cell.imageView.image)
-            }
-        }
         
         let configuration = ImageViewerConfiguration { config in
             config.imageView = cell.imageView
-            config.imageBlock = block
         }
         
         present(ImageViewerController(configuration: configuration), animated: true)
