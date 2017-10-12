@@ -1,7 +1,7 @@
 import UIKit
 
 final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    fileprivate var transitionContext: UIViewControllerContextTransitioning?
+    fileprivate weak var transitionContext: UIViewControllerContextTransitioning?
     
     fileprivate let fromImageView: UIImageView
     fileprivate var toImageView: UIImageView
