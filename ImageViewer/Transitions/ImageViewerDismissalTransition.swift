@@ -50,13 +50,15 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
 
     func start(_ transitionContext: UIViewControllerContextTransitioning) {
         self.transitionContext = transitionContext
-        self.fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+        self.fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)
         let containerView = transitionContext.containerView
-        let fromSuperView = fromImageView.superview!
+        let fromSuperView = fromImageView.superview
         let image = fromImageView.image ?? toImageView.image
         
         animatableImageview.image = image
-        animatableImageview.frame = fromSuperView.convert(fromImageView.frame, to: nil)
+        if let fromSuperView = fromSuperView {
+            animatableImageview.frame = fromSuperView.convert(fromImageView.frame, to: nil)
+        }
         animatableImageview.contentMode = .scaleAspectFit
         
         fromView?.isHidden = true
@@ -112,7 +114,9 @@ private extension ImageViewerDismissalTransition {
             case .end:
                 self.animatableImageview.contentMode = self.toImageView.contentMode
                 self.animatableImageview.transform = .identity
-                self.animatableImageview.frame = self.toImageView.superview!.convert(self.toImageView.frame, to: nil)
+                if let superview = self.toImageView.superview {
+                    self.animatableImageview.frame = superview.convert(self.toImageView.frame, to: nil)
+                }
                 self.fadeView.alpha = 0.0
             }
         }
