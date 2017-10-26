@@ -1,9 +1,10 @@
 import UIKit
 import AVFoundation
+import FLAnimatedImage
 
 public final class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
-    @IBOutlet fileprivate var imageView: UIImageView!
+    @IBOutlet fileprivate var imageView: FLAnimatedImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
     
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
@@ -29,6 +30,7 @@ public final class ImageViewerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = configuration?.imageView?.image ?? configuration?.image
+        imageView.animatedImage = configuration?.imageView?.animatedImage ?? configuration?.animatedImage
         
         setupScrollView()
         setupGestureRecognizers()
@@ -85,11 +87,17 @@ private extension ImageViewerController {
     func setupActivityIndicator() {
         guard let block = configuration?.imageBlock else { return }
         activityIndicator.startAnimating()
-        block { [weak self] image in
-            guard let image = image else { return }
-            DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
-                self?.imageView.image = image
+        block { [weak self] image, animatedImage in
+            if let image = image {
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.imageView.image = image
+                }
+            } else if let animatedImage = animatedImage {
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.imageView.animatedImage = animatedImage
+                }
             }
         }
     }
