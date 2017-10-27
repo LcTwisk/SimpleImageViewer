@@ -12,5 +12,6 @@ Pod::Spec.new do |s|
   s.source_files = "ImageViewer/**/*.{swift}"
   s.resources = ["ImageViewer/**/*.{xib}", "ImageViewer/**/*.{xcassets}"]
 
-
+  s.dependency 'SDWebImage', '~> 4'
+  s.dependency 'SDWebImage/GIF'
 end
