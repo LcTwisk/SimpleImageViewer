@@ -76,6 +76,10 @@ private extension ImageViewerController {
         panGestureRecognizer.addTarget(self, action: #selector(imageViewPanned(_:)))
         panGestureRecognizer.delegate = self
         imageView.addGestureRecognizer(panGestureRecognizer)
+
+        let longPressGestureRecognizer = UILongPressGestureRecognizer()
+        longPressGestureRecognizer.addTarget(self, action: #selector(imageViewLongPressed(_:)))
+        imageView.addGestureRecognizer(longPressGestureRecognizer)
     }
     
     func setupTransitions() {
@@ -138,6 +142,27 @@ private extension ImageViewerController {
             }
         default: break
         }
+    }
+
+    @objc func imageViewLongPressed(_ recognizer: UILongPressGestureRecognizer) {
+        guard configuration?.allowSharing ?? false else { return }
+
+        let _item: Any?
+        if let animatedImage = imageView.animatedImage, let data = animatedImage.data {
+            _item = data
+        } else {
+            _item = imageView.image
+        }
+
+        guard let item = _item else { return }
+
+        let activityController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+
+        activityController.popoverPresentationController?.sourceRect = CGRect(origin: CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY), size: .zero)
+        activityController.popoverPresentationController?.sourceView = imageView
+        activityController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+
+        present(activityController, animated: true)
     }
 }
 

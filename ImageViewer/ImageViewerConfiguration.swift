@@ -6,6 +6,7 @@ public typealias ImageCompletion = (UIImage?, FLAnimatedImage?) -> Void
 public typealias ImageBlock = (@escaping ImageCompletion) -> Void
 
 public final class ImageViewerConfiguration {
+    public var allowSharing: Bool = false
     public var image: UIImage?
     public var animatedImage: FLAnimatedImage?
     public var imageView: FLAnimatedImageView?
