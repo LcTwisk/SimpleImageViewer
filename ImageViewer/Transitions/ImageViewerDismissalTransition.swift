@@ -75,6 +75,7 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        animations: apply(state: .start),
                        completion: { _ in
                         self.fromView?.isHidden = false
+                        self.toImageView.alpha = 1
                         self.animatableImageview.removeFromSuperview()
                         self.fadeView.removeFromSuperview()
                         self.transitionContext?.completeTransition(false)
@@ -88,9 +89,11 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        animations: apply(state: .end),
                        completion: { _ in
                         self.toImageView.isHidden = false
+                        self.toImageView.alpha = 1
                         self.fadeView.removeFromSuperview()
                         self.animatableImageview.removeFromSuperview()
-                        self.fromView?.removeFromSuperview()
+//                        self.fromView?.removeFromSuperview()
+                        self.fromView?.alpha = 0
                         self.transitionContext?.completeTransition(true)
         })
     }
