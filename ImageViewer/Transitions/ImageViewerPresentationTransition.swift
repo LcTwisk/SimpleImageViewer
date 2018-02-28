@@ -16,7 +16,7 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         let containerView = transitionContext.containerView
         let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
         let fromParentView = fromImageView.superview!
-
+        
         let imageView = AnimatableImageView()
         imageView.image = fromImageView.image
         imageView.frame = fromParentView.convert(fromImageView.frame, to: nil)
@@ -28,7 +28,8 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         
         toView.frame = containerView.bounds
         toView.isHidden = true
-        fromImageView.isHidden = true
+        //        fromImageView.isHidden = true
+        fromImageView.alpha = 0
         
         containerView.addSubview(toView)
         containerView.addSubview(fadeView)
@@ -39,14 +40,16 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
                        options: .curveEaseOut,  animations: {
-            imageView.contentMode = .scaleAspectFit
-            imageView.frame = containerView.bounds
-            fadeView.alpha = 1.0
+                        imageView.contentMode = .scaleAspectFit
+                        imageView.frame = containerView.bounds
+                        fadeView.alpha = 1.0
         }, completion: { _ in
             toView.isHidden = false
+            toView.alpha = 1
             fadeView.removeFromSuperview()
             imageView.removeFromSuperview()
             transitionContext.completeTransition(true)
         })
     }
 }
+
