@@ -59,7 +59,8 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         animatableImageview.frame = fromSuperView.convert(fromImageView.frame, to: nil)
         animatableImageview.contentMode = .scaleAspectFit
         
-        fromView?.isHidden = true
+//        fromView?.isHidden = true
+        fromView?.alpha = 0
         fadeView.frame = containerView.bounds
         fadeView.backgroundColor = .black
         
@@ -74,7 +75,8 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        options: .curveEaseInOut,
                        animations: apply(state: .start),
                        completion: { _ in
-                        self.fromView?.isHidden = false
+//                        self.fromView?.isHidden = false
+                        self.fromView?.alpha = 1
                         self.toImageView.alpha = 1
                         self.animatableImageview.removeFromSuperview()
                         self.fadeView.removeFromSuperview()
