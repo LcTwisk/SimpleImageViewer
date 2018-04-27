@@ -16,7 +16,6 @@
 		A07E76D71ECC94A400B77D46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07E76D61ECC94A400B77D46 /* AppDelegate.swift */; };
 		A07E76D91ECC94A400B77D46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07E76D81ECC94A400B77D46 /* ViewController.swift */; };
 		A07E76DE1ECC94A400B77D46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07E76DD1ECC94A400B77D46 /* Assets.xcassets */; };
-		A07E76E11ECC94A400B77D46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07E76DF1ECC94A400B77D46 /* LaunchScreen.storyboard */; };
 		A07E77171ECE0F3500B77D46 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07E77161ECE0F3500B77D46 /* ImageCell.swift */; };
 		A08B781D1EF1684600F8C5BC /* ImageViewerDismissalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08B781B1EF1674200F8C5BC /* ImageViewerDismissalInteractor.swift */; };
 		A0BF70AB1EDC5B1400109F6E /* ImageViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BF70A91EDC5B1400109F6E /* ImageViewer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,7 +70,6 @@
 		A07E76D81ECC94A400B77D46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A07E76DB1ECC94A400B77D46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A07E76DD1ECC94A400B77D46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A07E76E01ECC94A400B77D46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A07E76EB1ECC94EA00B77D46 /* ImageViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerController.swift; sourceTree = "<group>"; };
 		A07E76ED1ECC959700B77D46 /* ImageViewerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImageViewerController.xib; path = Resources/ImageViewerController.xib; sourceTree = "<group>"; };
 		A07E77161ECE0F3500B77D46 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				A07E76DD1ECC94A400B77D46 /* Assets.xcassets */,
-				A07E76DF1ECC94A400B77D46 /* LaunchScreen.storyboard */,
 				A07E76DA1ECC94A400B77D46 /* Main.storyboard */,
 			);
 			path = Resources;
@@ -285,7 +282,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = aFrogleap;
 				TargetAttributes = {
 					A02EE5D31EF1897D000EAB41 = {
@@ -295,7 +292,7 @@
 					};
 					A07E76D21ECC94A400B77D46 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = WQEYNHG5C2;
+						DevelopmentTeam = 44MAY72KU6;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
@@ -340,7 +337,6 @@
 			files = (
 				A02EE5B91EF16E54000EAB41 /* Info.plist in Resources */,
 				A0BF70B91EDC759A00109F6E /* Main.storyboard in Resources */,
-				A07E76E11ECC94A400B77D46 /* LaunchScreen.storyboard in Resources */,
 				A07E76DE1ECC94A400B77D46 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,15 +408,6 @@
 			path = .;
 			sourceTree = "<group>";
 		};
-		A07E76DF1ECC94A400B77D46 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A07E76E01ECC94A400B77D46 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			path = .;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -458,7 +445,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -466,7 +455,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -509,7 +502,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -517,7 +512,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -548,15 +547,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = WQEYNHG5C2;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 44MAY72KU6;
 				INFOPLIST_FILE = "$(SRCROOT)/ImageViewer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.afrogleapbv.inhouse.swift.imageviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "231c2846-7859-47ba-9e7e-71eb04889210";
-				PROVISIONING_PROFILE_SPECIFIER = "AFL Development";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				PROVISIONING_PROFILE = "d5b8f7cb-0120-427a-9ff1-14d28ee0046f";
+				PROVISIONING_PROFILE_SPECIFIER = "aFrogleap Wildcard Development";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -573,7 +573,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.afrogleapbv.inhouse.swift.imageviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -596,7 +596,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -621,7 +621,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
