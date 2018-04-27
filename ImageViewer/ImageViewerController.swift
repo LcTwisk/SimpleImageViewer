@@ -5,7 +5,8 @@ public final class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var imageView: UIImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet fileprivate var closeButton: UIButton!
+
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
     fileprivate let configuration: ImageViewerConfiguration?
     
@@ -65,10 +66,16 @@ private extension ImageViewerController {
     }
     
     func setupGestureRecognizers() {
-        let tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        tapGestureRecognizer.addTarget(self, action: #selector(imageViewDoubleTapped))
-        imageView.addGestureRecognizer(tapGestureRecognizer)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer()
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.addTarget(self, action: #selector(imageViewDoubleTapped))
+        imageView.addGestureRecognizer(doubleTapGestureRecognizer)
+
+        let singleTapGestureRecognizer = UITapGestureRecognizer()
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.addTarget(self, action: #selector(imageViewSingleTapped))
+        singleTapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
+        imageView.addGestureRecognizer(singleTapGestureRecognizer)
         
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(self, action: #selector(imageViewPanned(_:)))
@@ -103,6 +110,19 @@ private extension ImageViewerController {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         } else {
             scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
+        }
+    }
+
+    @objc func imageViewSingleTapped() {
+        let presenting = closeButton.isHidden
+        if presenting {
+            closeButton.isHidden = false
+            closeButton.alpha = 0.0
+        }
+        UIView.animate(withDuration: 0.25, animations: {
+            self.closeButton.alpha = presenting ? 1.0 : 0.0
+        }) { _ in
+            self.closeButton.isHidden = !presenting
         }
     }
     
