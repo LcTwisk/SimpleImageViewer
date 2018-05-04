@@ -86,9 +86,13 @@ private extension ImageViewerController {
         guard let block = configuration?.imageBlock else { return }
         activityIndicator.startAnimating()
         block { [weak self] image in
+            defer {
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                }
+            }
             guard let image = image else { return }
             DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
                 self?.imageView.image = image
             }
         }
