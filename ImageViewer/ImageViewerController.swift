@@ -110,8 +110,13 @@ private extension ImageViewerController {
         }
     }
     
+    private func isPanSupported(for orientation: UIInterfaceOrientation) -> Bool {
+        return configuration?.isPanSupported?(orientation) ?? true
+    }
+    
     @objc func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
-        guard transitionHandler != nil else { return }
+        guard transitionHandler != nil, isPanSupported(for: self.interfaceOrientation)
+            else { return }
             
         let translation = recognizer.translation(in: imageView)
         let velocity = recognizer.velocity(in: imageView)
