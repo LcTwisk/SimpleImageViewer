@@ -1,7 +1,7 @@
 import UIKit
 
 final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    fileprivate var transitionContext: UIViewControllerContextTransitioning?
+    fileprivate weak var transitionContext: UIViewControllerContextTransitioning?
     
     fileprivate let fromImageView: UIImageView
     fileprivate var toImageView: UIImageView
@@ -75,7 +75,7 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        delay: 0,
                        options: .curveEaseInOut,
                        animations: apply(state: .start),
-                       completion: { completed in
+                       completion: { _ in
                         self.fromView?.isHidden = false
                         self.animatableImageview.removeFromSuperview()
                         self.fadeView.removeFromSuperview()
@@ -88,12 +88,12 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        delay: 0,
                        options: .curveEaseInOut,
                        animations: apply(state: .end),
-                       completion: { completed in
+                       completion: { _ in
                         self.toImageView.isHidden = false
                         self.fadeView.removeFromSuperview()
                         self.animatableImageview.removeFromSuperview()
                         self.fromView?.removeFromSuperview()
-                        self.transitionContext?.completeTransition(completed)
+                        self.transitionContext?.completeTransition(true)
         })
     }
 }
