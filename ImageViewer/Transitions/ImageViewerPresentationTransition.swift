@@ -14,23 +14,27 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
-        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
-        let fromParentView = fromImageView.superview!
+        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)
+        let fromParentView = fromImageView.superview
 
         let imageView = AnimatableImageView()
         imageView.image = fromImageView.image
-        imageView.frame = fromParentView.convert(fromImageView.frame, to: nil)
+        if let fromParentView = fromParentView {
+            imageView.frame = fromParentView.convert(fromImageView.frame, to: nil)
+        }
         imageView.contentMode = fromImageView.contentMode
         
         let fadeView = UIView(frame: containerView.bounds)
         fadeView.backgroundColor = .black
         fadeView.alpha = 0.0
         
-        toView.frame = containerView.bounds
-        toView.isHidden = true
+        toView?.frame = containerView.bounds
+        toView?.isHidden = true
         fromImageView.isHidden = true
-        
-        containerView.addSubview(toView)
+
+        if let toView = toView {
+            containerView.addSubview(toView)
+        }
         containerView.addSubview(fadeView)
         containerView.addSubview(imageView)
         
@@ -43,7 +47,7 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
             imageView.frame = containerView.bounds
             fadeView.alpha = 1.0
         }, completion: { _ in
-            toView.isHidden = false
+            toView?.isHidden = false
             fadeView.removeFromSuperview()
             imageView.removeFromSuperview()
             transitionContext.completeTransition(true)

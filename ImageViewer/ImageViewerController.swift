@@ -1,9 +1,10 @@
 import UIKit
 import AVFoundation
+import FLAnimatedImage
 
 public final class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
-    @IBOutlet fileprivate var imageView: UIImageView!
+    @IBOutlet fileprivate var imageView: FLAnimatedImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
     
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
@@ -29,6 +30,7 @@ public final class ImageViewerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = configuration?.imageView?.image ?? configuration?.image
+        imageView.animatedImage = configuration?.imageView?.animatedImage ?? configuration?.animatedImage
         
         setupScrollView()
         setupGestureRecognizers()
@@ -74,6 +76,10 @@ private extension ImageViewerController {
         panGestureRecognizer.addTarget(self, action: #selector(imageViewPanned(_:)))
         panGestureRecognizer.delegate = self
         imageView.addGestureRecognizer(panGestureRecognizer)
+
+        let longPressGestureRecognizer = UILongPressGestureRecognizer()
+        longPressGestureRecognizer.addTarget(self, action: #selector(imageViewLongPressed(_:)))
+        imageView.addGestureRecognizer(longPressGestureRecognizer)
     }
     
     func setupTransitions() {
@@ -85,11 +91,17 @@ private extension ImageViewerController {
     func setupActivityIndicator() {
         guard let block = configuration?.imageBlock else { return }
         activityIndicator.startAnimating()
-        block { [weak self] image in
-            guard let image = image else { return }
-            DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
-                self?.imageView.image = image
+        block { [weak self] image, animatedImage in
+            if let image = image {
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.imageView.image = image
+                }
+            } else if let animatedImage = animatedImage {
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.imageView.animatedImage = animatedImage
+                }
             }
         }
     }
@@ -130,6 +142,27 @@ private extension ImageViewerController {
             }
         default: break
         }
+    }
+
+    @objc func imageViewLongPressed(_ recognizer: UILongPressGestureRecognizer) {
+        guard configuration?.allowSharing ?? false else { return }
+
+        let _item: Any?
+        if let animatedImage = imageView.animatedImage, let data = animatedImage.data {
+            _item = data
+        } else {
+            _item = imageView.image
+        }
+
+        guard let item = _item else { return }
+
+        let activityController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+
+        activityController.popoverPresentationController?.sourceRect = CGRect(origin: CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY), size: .zero)
+        activityController.popoverPresentationController?.sourceView = imageView
+        activityController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+
+        present(activityController, animated: true)
     }
 }
 
