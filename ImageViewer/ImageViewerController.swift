@@ -78,7 +78,7 @@ private extension ImageViewerController {
     
     func setupTransitions() {
         guard let imageView = configuration?.imageView else { return }
-        transitionHandler = ImageViewerTransitioningHandler(fromImageView: imageView, toImageView: self.imageView, animatingRadius: configuration?.animateRadius ?? false)
+        transitionHandler = ImageViewerTransitioningHandler(fromImageView: imageView, toImageView: self.imageView, fromImage: configuration?.image, animatingRadius: configuration?.animateRadius ?? false)
         transitioningDelegate = transitionHandler
     }
     

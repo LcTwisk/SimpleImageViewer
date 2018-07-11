@@ -8,8 +8,8 @@ final class ImageViewerTransitioningHandler: NSObject {
     
     var dismissInteractively = false
     
-    init(fromImageView: UIImageView, toImageView: UIImageView, animatingRadius: Bool) {
-        self.presentationTransition = ImageViewerPresentationTransition(fromImageView: fromImageView, animatingRadius: animatingRadius)
+    init(fromImageView: UIImageView, toImageView: UIImageView, fromImage: UIImage?, animatingRadius: Bool) {
+        self.presentationTransition = ImageViewerPresentationTransition(fromImageView: fromImageView, fromImage: fromImage, animatingRadius: animatingRadius)
         self.dismissalTransition = ImageViewerDismissalTransition(fromImageView: toImageView, toImageView: fromImageView, animatingRadius: animatingRadius)
         self.dismissalInteractor = ImageViewerDismissalInteractor(transition: dismissalTransition)
         super.init()

@@ -3,12 +3,13 @@ import UIKit
 final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     private let fromImageView: UIImageView
-    
     private let animatingRadius: Bool
+    private let fromImage: UIImage?
     
-    init(fromImageView: UIImageView, animatingRadius: Bool) {
+    init(fromImageView: UIImageView, fromImage: UIImage?, animatingRadius: Bool) {
         self.fromImageView = fromImageView
         self.animatingRadius = animatingRadius
+        self.fromImage = fromImage
         super.init()
     }
     
@@ -22,7 +23,7 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         let fromParentView = fromImageView.superview!
 
         let transitionImageView = AnimatableImageView()
-        transitionImageView.image = fromImageView.image
+        transitionImageView.image = fromImage ?? fromImageView.image
         if animatingRadius {
             transitionImageView.setCornerRadius(fromImageView.frame.width / 2)
         }
