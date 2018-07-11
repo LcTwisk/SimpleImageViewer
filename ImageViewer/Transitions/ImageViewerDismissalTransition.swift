@@ -6,6 +6,8 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
     fileprivate let fromImageView: UIImageView
     fileprivate var toImageView: UIImageView
     
+    private let animatingRadius: Bool
+    
     fileprivate var animatableImageview = AnimatableImageView()
     fileprivate var fromView: UIView?
     fileprivate var fadeView = UIView()
@@ -23,9 +25,11 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         didSet { updateTransform() }
     }
     
-    init(fromImageView: UIImageView, toImageView: UIImageView) {
+    init(fromImageView: UIImageView, toImageView: UIImageView, animatingRadius: Bool) {
         self.fromImageView = fromImageView
         self.toImageView = toImageView
+        fromImageView.layer.masksToBounds = true
+        self.animatingRadius = animatingRadius
         super.init()
     }
     
@@ -37,6 +41,10 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         let invertedPercentage = 1.0 - percentage
         fadeView.alpha = invertedPercentage
         scaleTransform = CGAffineTransform(scaleX: invertedPercentage, y: invertedPercentage)
+        if animatingRadius {
+            let radius = fromImageView.frame.width / 2 * percentage
+            animatableImageview.imageView.layer.cornerRadius = radius
+        }
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -113,6 +121,9 @@ private extension ImageViewerDismissalTransition {
                 self.animatableImageview.contentMode = self.toImageView.contentMode
                 self.animatableImageview.transform = .identity
                 self.animatableImageview.frame = self.toImageView.superview!.convert(self.toImageView.frame, to: nil)
+                if self.animatingRadius {
+                    self.animatableImageview.imageView.layer.cornerRadius = self.toImageView.frame.width / 2
+                }
                 self.fadeView.alpha = 0.0
             }
         }

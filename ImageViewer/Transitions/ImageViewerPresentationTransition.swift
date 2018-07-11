@@ -1,10 +1,14 @@
 import UIKit
 
 final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimatedTransitioning {
+    
     private let fromImageView: UIImageView
     
-    init(fromImageView: UIImageView) {
+    private let animatingRadius: Bool
+    
+    init(fromImageView: UIImageView, animatingRadius: Bool) {
         self.fromImageView = fromImageView
+        self.animatingRadius = animatingRadius
         super.init()
     }
     
@@ -17,10 +21,13 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
         let fromParentView = fromImageView.superview!
 
-        let imageView = AnimatableImageView()
-        imageView.image = fromImageView.image
-        imageView.frame = fromParentView.convert(fromImageView.frame, to: nil)
-        imageView.contentMode = fromImageView.contentMode
+        let transitionImageView = AnimatableImageView()
+        transitionImageView.image = fromImageView.image
+        if animatingRadius {
+            transitionImageView.imageView.layer.cornerRadius = fromImageView.frame.width / 2
+        }
+        transitionImageView.frame = fromParentView.convert(fromImageView.frame, to: nil)
+        transitionImageView.contentMode = fromImageView.contentMode
         
         let fadeView = UIView(frame: containerView.bounds)
         fadeView.backgroundColor = .black
@@ -32,20 +39,21 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         
         containerView.addSubview(toView)
         containerView.addSubview(fadeView)
-        containerView.addSubview(imageView)
+        containerView.addSubview(transitionImageView)
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
                        options: .curveEaseOut,  animations: {
-            imageView.contentMode = .scaleAspectFit
-            imageView.frame = containerView.bounds
+            transitionImageView.contentMode = .scaleAspectFit
+            transitionImageView.frame = containerView.bounds
+            transitionImageView.imageView.layer.cornerRadius = 0
             fadeView.alpha = 1.0
         }, completion: { _ in
             toView.isHidden = false
             fadeView.removeFromSuperview()
-            imageView.removeFromSuperview()
+            transitionImageView.removeFromSuperview()
             transitionContext.completeTransition(true)
         })
     }

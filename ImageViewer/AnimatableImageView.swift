@@ -1,7 +1,7 @@
 import UIKit
 
 final class AnimatableImageView: UIView {
-    fileprivate let imageView = UIImageView()
+    let imageView = UIImageView()
     
     override var contentMode: UIViewContentMode {
         didSet { update() }
@@ -21,6 +21,7 @@ final class AnimatableImageView: UIView {
     init() {
         super.init(frame: .zero)
         clipsToBounds = true
+        imageView.layer.masksToBounds = true
         addSubview(imageView)
         imageView.contentMode = .scaleToFill
     }
