@@ -24,7 +24,7 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         let transitionImageView = AnimatableImageView()
         transitionImageView.image = fromImageView.image
         if animatingRadius {
-            transitionImageView.imageView.layer.cornerRadius = fromImageView.frame.width / 2
+            transitionImageView.setCornerRadius(fromImageView.frame.width / 2)
         }
         transitionImageView.frame = fromParentView.convert(fromImageView.frame, to: nil)
         transitionImageView.contentMode = fromImageView.contentMode
@@ -48,7 +48,7 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
                        options: .curveEaseOut,  animations: {
             transitionImageView.contentMode = .scaleAspectFit
             transitionImageView.frame = containerView.bounds
-            transitionImageView.imageView.layer.cornerRadius = 0
+            transitionImageView.setCornerRadius(0)
             fadeView.alpha = 1.0
         }, completion: { _ in
             toView.isHidden = false
