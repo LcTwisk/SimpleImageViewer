@@ -5,8 +5,7 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
     
     fileprivate let fromImageView: UIImageView
     fileprivate var toImageView: UIImageView
-    
-    private let animatingRadius: Bool
+    fileprivate let animatingRadius: Bool
     
     fileprivate var animatableImageview = AnimatableImageView()
     fileprivate var fromView: UIView?
@@ -28,7 +27,6 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
     init(fromImageView: UIImageView, toImageView: UIImageView, animatingRadius: Bool) {
         self.fromImageView = fromImageView
         self.toImageView = toImageView
-        fromImageView.layer.masksToBounds = true
         self.animatingRadius = animatingRadius
         super.init()
     }
@@ -43,7 +41,7 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         scaleTransform = CGAffineTransform(scaleX: invertedPercentage, y: invertedPercentage)
         if animatingRadius {
             let radius = fromImageView.frame.width / 2 * percentage
-            animatableImageview.imageView.layer.cornerRadius = radius
+            animatableImageview.setCornerRadius(radius)
         }
     }
     
@@ -122,7 +120,7 @@ private extension ImageViewerDismissalTransition {
                 self.animatableImageview.transform = .identity
                 self.animatableImageview.frame = self.toImageView.superview!.convert(self.toImageView.frame, to: nil)
                 if self.animatingRadius {
-                    self.animatableImageview.imageView.layer.cornerRadius = self.toImageView.frame.width / 2
+                    self.animatableImageview.setCornerRadius(self.toImageView.frame.width / 2)
                 }
                 self.fadeView.alpha = 0.0
             }

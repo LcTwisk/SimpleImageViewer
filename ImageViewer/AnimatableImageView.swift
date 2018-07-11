@@ -1,7 +1,7 @@
 import UIKit
 
 final class AnimatableImageView: UIView {
-    let imageView = UIImageView()
+    fileprivate let imageView = UIImageView()
     
     override var contentMode: UIViewContentMode {
         didSet { update() }
@@ -28,6 +28,10 @@ final class AnimatableImageView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setCornerRadius(_ radius: CGFloat) {
+        imageView.layer.cornerRadius = radius
     }
 }
 
