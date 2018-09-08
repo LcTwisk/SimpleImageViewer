@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="G4a-oM-SyO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="G4a-oM-SyO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="A0s-41-Wnw">
             <objects>
-                <collectionViewController id="G4a-oM-SyO" customClass="ViewController" customModule="ImageViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="G4a-oM-SyO" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1Dh-Th-18y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,7 +24,7 @@
                             <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="6"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="df3-v1-K9C" customClass="ImageCell" customModule="ImageViewer" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="df3-v1-K9C" customClass="ImageCell" customModule="Example" customModuleProvider="target">
                                 <rect key="frame" x="6" y="56" width="121" height="104"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -46,8 +46,30 @@
                                     <outlet property="imageView" destination="Z5q-RV-pm9" id="h7W-wW-oIX"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCell" id="GfW-V3-q12" userLabel="VideoCell" customClass="VideoCell" customModule="Example" customModuleProvider="target">
+                                <rect key="frame" x="248" y="56" width="121" height="104"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="121" height="104"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="VideoCell" translatesAutoresizingMaskIntoConstraints="NO" id="Yr4-h1-yfi">
+                                            <rect key="frame" x="0.0" y="0.0" width="121" height="104"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Yr4-h1-yfi" secondAttribute="bottom" id="1gb-G6-nbj"/>
+                                    <constraint firstItem="Yr4-h1-yfi" firstAttribute="top" secondItem="GfW-V3-q12" secondAttribute="top" id="Mup-ku-Q7A"/>
+                                    <constraint firstAttribute="trailing" secondItem="Yr4-h1-yfi" secondAttribute="trailing" id="WXp-P5-G5M"/>
+                                    <constraint firstItem="Yr4-h1-yfi" firstAttribute="leading" secondItem="GfW-V3-q12" secondAttribute="leading" id="Y5G-Vm-HTJ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="Yr4-h1-yfi" id="fVH-sf-wy2"/>
+                                </connections>
+                            </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="7vX-Hw-G2K" customClass="HeaderView" customModule="ImageViewer" customModuleProvider="target">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="7vX-Hw-G2K" customClass="HeaderView" customModule="Example" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
@@ -72,6 +94,7 @@
                             <outlet property="delegate" destination="G4a-oM-SyO" id="YXB-fa-6Vo"/>
                         </connections>
                     </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hc7-vT-g0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

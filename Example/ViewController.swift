@@ -1,8 +1,9 @@
 import UIKit
 import SimpleImageViewer
+import AVFoundation
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    fileprivate let contentModes: [UIViewContentMode] = [.scaleToFill,
+    private let contentModes: [UIViewContentMode] = [.scaleToFill,
                                                          .scaleAspectFit,
                                                          .scaleAspectFill,
                                                          .center,
@@ -15,12 +16,19 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                                                          .bottomLeft,
                                                          .bottomRight]
     
-    fileprivate let images = [UIImage(named: "1"),
-                              UIImage(named: "2"),
-                              UIImage(named: "3"),
-                              UIImage(named: "4"),
-                              UIImage(named: "5"),
-                              UIImage(named: "6")]
+    private let images = [UIImage(named: "1"),
+                          UIImage(named: "2"),
+                          UIImage(named: "3"),
+                          UIImage(named: "4"),
+                          UIImage(named: "5"),
+                          UIImage(named: "6")]
+    
+    private let videos = [AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!))]
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return contentModes.count
@@ -28,24 +36,48 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return images.count + videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        cell.imageView.image = images[indexPath.row]
-        cell.imageView.contentMode = contentModes[indexPath.section]
-        return cell
+        if indexPath.row % 2 == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
+            cell.imageView.image = images[indexPath.row / 2]
+            cell.imageView.contentMode = contentModes[indexPath.section]
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCell", for: indexPath) as! VideoCell
+            let video = videos[(indexPath.row + 1) / 2 - 1]
+            cell.imageView.image = Utilities.screenShot(fromAsset: video, atTime: CMTimeMake(0, 1))
+            cell.imageView.contentMode = contentModes[indexPath.section]
+            return cell
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ImageCell
+        var asset: Asset!
         
-        let configuration = ImageViewerConfiguration { config in
-            config.imageView = cell.imageView
+        if let cell = collectionView.cellForItem(at: indexPath) as? ImageCell {
+            asset = Asset.image(imageView: cell.imageView, image: nil, imageBlock: nil)
+        } else if let cell = collectionView.cellForItem(at: indexPath) as? VideoCell {
+            let video = videos[(indexPath.row + 1) / 2 - 1]
+            asset = Asset.video(imageView: cell.imageView, video: video)
         }
         
-        present(ImageViewerController(configuration: configuration), animated: true)
+        let configuration = ImageViewerConfiguration { config in
+            config.asset = asset
+        }
+        
+        present(AssetViewController(configuration: configuration), animated: true)
+    }
+    
+    func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async() {
+                completion(image)
+            }
+        }.resume()
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

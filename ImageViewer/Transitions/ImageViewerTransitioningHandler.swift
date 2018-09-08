@@ -1,18 +1,22 @@
 import UIKit
 
 final class ImageViewerTransitioningHandler: NSObject {
-    fileprivate let presentationTransition: ImageViewerPresentationTransition
-    fileprivate let dismissalTransition: ImageViewerDismissalTransition
+    private let presentationTransition: ImageViewerPresentationTransition
+    private let dismissalTransition: ImageViewerDismissalTransition
     
     let dismissalInteractor: ImageViewerDismissalInteractor
     
     var dismissInteractively = false
     
-    init(fromImageView: UIImageView, toImageView: UIImageView) {
+    init(fromImageView: UIImageView, toAssetView: UIView) {
         self.presentationTransition = ImageViewerPresentationTransition(fromImageView: fromImageView)
-        self.dismissalTransition = ImageViewerDismissalTransition(fromImageView: toImageView, toImageView: fromImageView)
+        self.dismissalTransition = ImageViewerDismissalTransition(fromAssetView: toAssetView, toImageView: fromImageView)
         self.dismissalInteractor = ImageViewerDismissalInteractor(transition: dismissalTransition)
         super.init()
+    }
+    
+    func update(dismissImage: UIImage?) {
+        dismissalTransition.update(dismissImage: dismissImage)
     }
 }
 

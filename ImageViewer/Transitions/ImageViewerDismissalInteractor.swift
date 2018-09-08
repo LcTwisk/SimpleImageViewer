@@ -1,7 +1,7 @@
 import UIKit
 
 final class ImageViewerDismissalInteractor: NSObject, UIViewControllerInteractiveTransitioning {
-    fileprivate let transition: ImageViewerDismissalTransition
+    private let transition: ImageViewerDismissalTransition
     
     init(transition: ImageViewerDismissalTransition) {
         self.transition = transition

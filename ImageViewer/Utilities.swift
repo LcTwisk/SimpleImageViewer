@@ -1,7 +1,15 @@
 import QuartzCore
 import AVFoundation
+import UIKit
 
-struct Utilities {
+public struct Utilities {
+    public static func screenShot(fromAsset asset: AVAsset, atTime time: CMTime) -> UIImage? {
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        guard let image = try? imageGenerator.copyCGImage(at: time, actualTime: nil) else { return nil }
+        return UIImage(cgImage: image)
+    }
+    
     static func rect(forSize size: CGSize) -> CGRect {
         return CGRect(origin: .zero, size: size)
     }

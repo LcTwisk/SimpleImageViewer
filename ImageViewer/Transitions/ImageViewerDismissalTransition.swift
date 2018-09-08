@@ -1,30 +1,31 @@
 import UIKit
 
 final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    fileprivate weak var transitionContext: UIViewControllerContextTransitioning?
+    private weak var transitionContext: UIViewControllerContextTransitioning?
     
-    fileprivate let fromImageView: UIImageView
-    fileprivate var toImageView: UIImageView
+    private let fromAssetView: UIView
+    private var toImageView: UIImageView
+    private var dismissImage: UIImage?
     
-    fileprivate var animatableImageview = AnimatableImageView()
-    fileprivate var fromView: UIView?
-    fileprivate var fadeView = UIView()
+    private var animatableImageview = AnimatableImageView()
+    private var fromView: UIView?
+    private var fadeView = UIView()
     
     enum TransitionState {
         case start
         case end
     }
     
-    fileprivate var translationTransform: CGAffineTransform = CGAffineTransform.identity {
+    private var translationTransform: CGAffineTransform = CGAffineTransform.identity {
         didSet { updateTransform() }
     }
     
-    fileprivate var scaleTransform: CGAffineTransform = CGAffineTransform.identity {
+    private var scaleTransform: CGAffineTransform = CGAffineTransform.identity {
         didSet { updateTransform() }
     }
     
-    init(fromImageView: UIImageView, toImageView: UIImageView) {
-        self.fromImageView = fromImageView
+    init(fromAssetView: UIView, toImageView: UIImageView) {
+        self.fromAssetView = fromAssetView
         self.toImageView = toImageView
         super.init()
     }
@@ -37,6 +38,10 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         let invertedPercentage = 1.0 - percentage
         fadeView.alpha = invertedPercentage
         scaleTransform = CGAffineTransform(scaleX: invertedPercentage, y: invertedPercentage)
+    }
+    
+    func update(dismissImage: UIImage?) {
+        self.dismissImage = dismissImage
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -52,11 +57,12 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         self.transitionContext = transitionContext
         self.fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
         let containerView = transitionContext.containerView
-        let fromSuperView = fromImageView.superview!
-        let image = fromImageView.image ?? toImageView.image
+        let fromSuperView = fromAssetView.superview!
+        
+        let image = dismissImage ?? toImageView.image
         
         animatableImageview.image = image
-        animatableImageview.frame = fromSuperView.convert(fromImageView.frame, to: nil)
+        animatableImageview.frame = fromSuperView.convert(fromAssetView.frame, to: nil)
         animatableImageview.contentMode = .scaleAspectFit
         
         fromView?.isHidden = true
@@ -107,7 +113,7 @@ private extension ImageViewerDismissalTransition {
             case .start:
                 self.animatableImageview.contentMode = .scaleAspectFit
                 self.animatableImageview.transform = .identity
-                self.animatableImageview.frame = self.fromImageView.frame
+                self.animatableImageview.frame = self.fromAssetView.frame
                 self.fadeView.alpha = 1.0
             case .end:
                 self.animatableImageview.contentMode = self.toImageView.contentMode
