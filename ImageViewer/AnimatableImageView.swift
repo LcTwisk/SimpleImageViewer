@@ -21,12 +21,17 @@ final class AnimatableImageView: UIView {
     init() {
         super.init(frame: .zero)
         clipsToBounds = true
+        imageView.layer.masksToBounds = true
         addSubview(imageView)
         imageView.contentMode = .scaleToFill
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setCornerRadius(_ radius: CGFloat) {
+        imageView.layer.cornerRadius = radius
     }
 }
 

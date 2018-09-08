@@ -8,6 +8,7 @@ public final class ImageViewerConfiguration {
     public var image: UIImage?
     public var imageView: UIImageView?
     public var imageBlock: ImageBlock?
+    public var animateRadius: Bool = false
     
     public typealias ConfigurationClosure = (ImageViewerConfiguration) -> ()
     
