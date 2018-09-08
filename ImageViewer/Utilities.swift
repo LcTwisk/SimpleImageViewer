@@ -3,11 +3,12 @@ import AVFoundation
 import UIKit
 
 public struct Utilities {
-    public static func screenShot(fromAsset asset: AVAsset, atTime time: CMTime) -> UIImage? {
+    public static func screenShot(fromAsset asset: AVAsset, atTime time: CMTime, size: CGSize) -> UIImage? {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.requestedTimeToleranceBefore = kCMTimeZero
         imageGenerator.requestedTimeToleranceAfter = kCMTimeZero
         imageGenerator.appliesPreferredTrackTransform = true
+        imageGenerator.maximumSize = size
         guard let image = try? imageGenerator.copyCGImage(at: time, actualTime: nil) else { return nil }
         return UIImage(cgImage: image)
     }

@@ -3,18 +3,18 @@ import SimpleImageViewer
 import AVFoundation
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    private let contentModes: [UIViewContentMode] = [.scaleToFill,
-                                                         .scaleAspectFit,
-                                                         .scaleAspectFill,
-                                                         .center,
-                                                         .top,
-                                                         .bottom,
-                                                         .left,
-                                                         .right,
-                                                         .topLeft,
-                                                         .topRight,
-                                                         .bottomLeft,
-                                                         .bottomRight]
+    private let contentModes: [UIViewContentMode] = [.scaleAspectFill,
+                                                     .scaleAspectFit,
+                                                     .scaleToFill,
+                                                     .center,
+                                                     .top,
+                                                     .bottom,
+                                                     .left,
+                                                     .right,
+                                                     .topLeft,
+                                                     .topRight,
+                                                     .bottomLeft,
+                                                     .bottomRight]
     
     private let images = [UIImage(named: "1"),
                           UIImage(named: "2"),
@@ -23,12 +23,12 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                           UIImage(named: "5"),
                           UIImage(named: "6")]
     
-    private let videos = [AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
-                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
-                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
-                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
-                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!)),
-                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video", ofType: "mp4")!))]
+    private let videos = [AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "1", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "2", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "3", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "4", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "5", ofType: "mp4")!)),
+                          AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "6", ofType: "mp4")!))]
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return contentModes.count
@@ -48,7 +48,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCell", for: indexPath) as! VideoCell
             let video = videos[(indexPath.row + 1) / 2 - 1]
-            cell.imageView.image = Utilities.screenShot(fromAsset: video, atTime: CMTimeMake(0, 1))
+            let thumbnailSize = CGSize(width: cell.imageView.bounds.width * UIScreen.main.scale,
+                                       height: cell.imageView.bounds.height * UIScreen.main.scale)
+            cell.imageView.image = Utilities.screenShot(fromAsset: video, atTime: CMTimeMake(0, 1), size: thumbnailSize)
             cell.imageView.contentMode = contentModes[indexPath.section]
             return cell
         }
@@ -69,15 +71,6 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
         present(GalleryViewController(configuration: configuration), animated: true)
-    }
-    
-    func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, let image = UIImage(data: data) else { return }
-            DispatchQueue.main.async() {
-                completion(image)
-            }
-        }.resume()
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

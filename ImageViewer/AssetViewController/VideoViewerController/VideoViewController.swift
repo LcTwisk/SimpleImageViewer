@@ -58,6 +58,8 @@ public final class VideoViewController: AssetViewController {
 extension VideoViewController: TransitionDismissable {
     var dismissAssetView: UIView { return assetView }
     var dismissImage: UIImage? {
-        return Utilities.screenShot(fromAsset: playerItem.asset, atTime: playerItem.currentTime())
+        let imageSize = CGSize(width: assetView.bounds.width * UIScreen.main.scale,
+                               height: assetView.bounds.height * UIScreen.main.scale)
+        return Utilities.screenShot(fromAsset: playerItem.asset, atTime: playerItem.currentTime(), size: imageSize)
     }
 }

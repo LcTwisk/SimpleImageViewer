@@ -56,13 +56,22 @@
                                         <imageView userInteractionEnabled="NO" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="VideoCell" translatesAutoresizingMaskIntoConstraints="NO" id="Yr4-h1-yfi">
                                             <rect key="frame" x="0.0" y="0.0" width="121" height="104"/>
                                         </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playOverlay" translatesAutoresizingMaskIntoConstraints="NO" id="94R-x1-BWo">
+                                            <rect key="frame" x="38.5" y="30" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="GCh-n2-8y8"/>
+                                                <constraint firstAttribute="height" constant="44" id="klk-qt-iGP"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="94R-x1-BWo" firstAttribute="centerY" secondItem="GfW-V3-q12" secondAttribute="centerY" id="06q-ZO-xVr"/>
                                     <constraint firstAttribute="bottom" secondItem="Yr4-h1-yfi" secondAttribute="bottom" id="1gb-G6-nbj"/>
                                     <constraint firstItem="Yr4-h1-yfi" firstAttribute="top" secondItem="GfW-V3-q12" secondAttribute="top" id="Mup-ku-Q7A"/>
                                     <constraint firstAttribute="trailing" secondItem="Yr4-h1-yfi" secondAttribute="trailing" id="WXp-P5-G5M"/>
                                     <constraint firstItem="Yr4-h1-yfi" firstAttribute="leading" secondItem="GfW-V3-q12" secondAttribute="leading" id="Y5G-Vm-HTJ"/>
+                                    <constraint firstItem="94R-x1-BWo" firstAttribute="centerX" secondItem="GfW-V3-q12" secondAttribute="centerX" id="fMZ-3I-O1H"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="Yr4-h1-yfi" id="fVH-sf-wy2"/>
@@ -101,4 +110,7 @@
             <point key="canvasLocation" x="-228" y="-67.016491754122939"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="playOverlay" width="62" height="62"/>
+    </resources>
 </document>
