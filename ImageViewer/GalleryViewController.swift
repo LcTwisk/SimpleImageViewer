@@ -1,11 +1,11 @@
 import UIKit
 
 protocol TransitionDismissable {
-    var assetView: UIView { get }
+    var dismissAssetView: UIView { get }
     var dismissImage: UIImage? { get }
 }
 
-public final class AssetViewController: UIViewController {
+public final class GalleryViewController: UIViewController {
     private var transitionHandler: ImageViewerTransitioningHandler?
     private let configuration: ImageViewerConfiguration
     private var childViewController: TransitionDismissable!
@@ -38,6 +38,7 @@ public final class AssetViewController: UIViewController {
     
     func setupChildAssetViewController() {
         let viewController = configuration.asset.assetViewController
+        viewController.assetPanGestureDelegate = self
         childViewController = viewController
         addChildViewController(viewController)
         containerView.addSubview(viewController.view)
@@ -47,7 +48,7 @@ public final class AssetViewController: UIViewController {
     
     func setupTransitions() {
         guard let imageView = configuration.asset.imageView,
-            let assetView = childViewController?.assetView else { return }
+            let assetView = childViewController?.dismissAssetView else { return }
         transitionHandler = ImageViewerTransitioningHandler(fromImageView: imageView, toAssetView: assetView)
         transitioningDelegate = transitionHandler
     }
@@ -58,8 +59,33 @@ public final class AssetViewController: UIViewController {
     }
 }
 
+extension GalleryViewController: AssetViewPanGestureDelegate {
+    func didStartPanGesture() {
+        transitionHandler?.update(dismissImage: childViewController.dismissImage)
+        transitionHandler?.dismissInteractively = true
+        dismiss(animated: true)
+    }
+    
+    func didChangePanGesture(translation: CGPoint) {
+        let percentage = abs(translation.y) / view.bounds.height
+        let transform = CGAffineTransform(translationX: translation.x, y: translation.y)
+        transitionHandler?.dismissalInteractor.update(percentage: percentage)
+        transitionHandler?.dismissalInteractor.update(transform: transform)
+    }
+    
+    func didEndPanGesture(translation: CGPoint, velocity: CGPoint) {
+        transitionHandler?.dismissInteractively = false
+        let percentage = abs(translation.y + velocity.y) / view.bounds.height
+        if percentage > 0.25 {
+            transitionHandler?.dismissalInteractor.finish()
+        } else {
+            transitionHandler?.dismissalInteractor.cancel()
+        }
+    }
+}
+
 private extension Asset {
-    var assetViewController: UIViewController & TransitionDismissable {
+    var assetViewController: AssetViewController & TransitionDismissable {
         switch self {
         case let .image(imageView, image, imageBlock):
             return ImageViewController(imageView: imageView, image: image, imageBlock: imageBlock)
@@ -68,11 +94,3 @@ private extension Asset {
         }
     }
 }
-
-
-
-
-
-
-
-

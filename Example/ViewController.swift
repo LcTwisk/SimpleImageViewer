@@ -68,7 +68,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             config.asset = asset
         }
         
-        present(AssetViewController(configuration: configuration), animated: true)
+        present(GalleryViewController(configuration: configuration), animated: true)
     }
     
     func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {

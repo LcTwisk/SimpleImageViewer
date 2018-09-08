@@ -13,9 +13,10 @@
 		A02EE5D91EF1897D000EAB41 /* SimpleImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF70A71EDC5B1400109F6E /* SimpleImageViewer.framework */; };
 		A02EE5DF1EF189B4000EAB41 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02EE5CD1EF172C3000EAB41 /* Utilities.swift */; };
 		A03B7BF5214402B100F855CF /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B7BF4214402B100F855CF /* VideoCell.swift */; };
+		A03B7BF82144144200F855CF /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B7BF72144144200F855CF /* AssetViewController.swift */; };
 		A03C418720E52DD50095925B /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A03C418620E52DD50095925B /* video.mp4 */; };
-		A0503D27205AE28F00AFF8E5 /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503D23205AE28F00AFF8E5 /* AssetViewController.swift */; };
-		A0503D28205AE28F00AFF8E5 /* AssetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0503D24205AE28F00AFF8E5 /* AssetViewController.xib */; };
+		A0503D27205AE28F00AFF8E5 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503D23205AE28F00AFF8E5 /* GalleryViewController.swift */; };
+		A0503D28205AE28F00AFF8E5 /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0503D24205AE28F00AFF8E5 /* GalleryViewController.xib */; };
 		A0503D29205AE28F00AFF8E5 /* ImageViewerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503D25205AE28F00AFF8E5 /* ImageViewerConfiguration.swift */; };
 		A0503D2A205AE28F00AFF8E5 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503D26205AE28F00AFF8E5 /* ImageViewController.swift */; };
 		A0503D2C205AE30400AFF8E5 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0503D2B205AE30400AFF8E5 /* ImageViewController.xib */; };
@@ -70,10 +71,11 @@
 		A02EE5D61EF1897D000EAB41 /* UtilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTests.swift; sourceTree = "<group>"; };
 		A02EE5D81EF1897D000EAB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A03B7BF4214402B100F855CF /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		A03B7BF72144144200F855CF /* AssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
 		A03C418620E52DD50095925B /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		A03DAD4E1EFCFF030060DF69 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
-		A0503D23205AE28F00AFF8E5 /* AssetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
-		A0503D24205AE28F00AFF8E5 /* AssetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetViewController.xib; sourceTree = "<group>"; };
+		A0503D23205AE28F00AFF8E5 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		A0503D24205AE28F00AFF8E5 /* GalleryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
 		A0503D25205AE28F00AFF8E5 /* ImageViewerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerConfiguration.swift; sourceTree = "<group>"; };
 		A0503D26205AE28F00AFF8E5 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		A0503D2B205AE30400AFF8E5 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
@@ -150,6 +152,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A03B7BF62144141F00F855CF /* AssetViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A03B7BF72144144200F855CF /* AssetViewController.swift */,
+				A0503D22205AE28F00AFF8E5 /* ImageViewerController */,
+				A0503D2D205AEFEB00AFF8E5 /* VideoViewerController */,
+			);
+			path = AssetViewController;
+			sourceTree = "<group>";
+		};
 		A0503D22205AE28F00AFF8E5 /* ImageViewerController */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,10 +230,9 @@
 			isa = PBXGroup;
 			children = (
 				A0503D25205AE28F00AFF8E5 /* ImageViewerConfiguration.swift */,
-				A0503D23205AE28F00AFF8E5 /* AssetViewController.swift */,
-				A0503D24205AE28F00AFF8E5 /* AssetViewController.xib */,
-				A0503D22205AE28F00AFF8E5 /* ImageViewerController */,
-				A0503D2D205AEFEB00AFF8E5 /* VideoViewerController */,
+				A0503D23205AE28F00AFF8E5 /* GalleryViewController.swift */,
+				A0503D24205AE28F00AFF8E5 /* GalleryViewController.xib */,
+				A03B7BF62144141F00F855CF /* AssetViewController */,
 				A0BF70A91EDC5B1400109F6E /* ImageViewer.h */,
 				A02EE5CB1EF16EBE000EAB41 /* Info.plist */,
 				A07E771F1ECE390C00B77D46 /* AnimatableImageView.swift */,
@@ -374,7 +385,7 @@
 			files = (
 				A0BF70BB1EDC75AE00109F6E /* ImageViewer-Assets.xcassets in Resources */,
 				A0503D2C205AE30400AFF8E5 /* ImageViewController.xib in Resources */,
-				A0503D28205AE28F00AFF8E5 /* AssetViewController.xib in Resources */,
+				A0503D28205AE28F00AFF8E5 /* GalleryViewController.xib in Resources */,
 				A0503D31205AF02100AFF8E5 /* VideoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,11 +423,12 @@
 				A0BF70B51EDC758300109F6E /* ImageViewerPresentationTransition.swift in Sources */,
 				A02EE5CF1EF172C8000EAB41 /* Utilities.swift in Sources */,
 				A0503D2F205AF00400AFF8E5 /* VideoViewController.swift in Sources */,
+				A03B7BF82144144200F855CF /* AssetViewController.swift in Sources */,
 				A0BF70B61EDC758300109F6E /* ImageViewerDismissalTransition.swift in Sources */,
 				A08B781D1EF1684600F8C5BC /* ImageViewerDismissalInteractor.swift in Sources */,
 				A0503D29205AE28F00AFF8E5 /* ImageViewerConfiguration.swift in Sources */,
 				A0BF70B81EDC758300109F6E /* AnimatableImageView.swift in Sources */,
-				A0503D27205AE28F00AFF8E5 /* AssetViewController.swift in Sources */,
+				A0503D27205AE28F00AFF8E5 /* GalleryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

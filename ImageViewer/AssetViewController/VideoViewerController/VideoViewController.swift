@@ -2,9 +2,8 @@
 import UIKit
 import AVFoundation
 
-public final class VideoViewController: UIViewController {
+public final class VideoViewController: AssetViewController {
     private var playerItem: AVPlayerItem
-    
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer!
     
@@ -19,7 +18,7 @@ public final class VideoViewController: UIViewController {
     
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        playerLayer?.frame = view.bounds
+        playerLayer?.frame = assetView.bounds
     }
     
     override public func viewDidLoad() {
@@ -32,25 +31,33 @@ public final class VideoViewController: UIViewController {
         player?.play()
     }
     
+    override var assetSize: CGSize? {
+        return playerItem.asset.tracks(withMediaType: AVMediaType.video).first?.naturalSize
+    }
+    
     func setupVideoLayer() {
         player = AVPlayer(playerItem: playerItem)
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspect
-        view.layer.addSublayer(playerLayer)
+        assetView.layer.addSublayer(playerLayer)
+    }
+    
+    @objc override func assetViewPanned(_ recognizer: UIPanGestureRecognizer) {
+        super.assetViewPanned(recognizer)
+        
+        switch recognizer.state {
+        case .began:
+            player?.pause()
+        case .ended, .cancelled:
+            player?.play()
+        default: break
+        }
     }
 }
 
 extension VideoViewController: TransitionDismissable {
-    var assetView: UIView { return view }
+    var dismissAssetView: UIView { return assetView }
     var dismissImage: UIImage? {
         return Utilities.screenShot(fromAsset: playerItem.asset, atTime: playerItem.currentTime())
     }
 }
-
-
-
-
-
-
-
-
