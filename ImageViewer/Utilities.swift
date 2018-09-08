@@ -5,6 +5,8 @@ import UIKit
 public struct Utilities {
     public static func screenShot(fromAsset asset: AVAsset, atTime time: CMTime) -> UIImage? {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.requestedTimeToleranceBefore = kCMTimeZero
+        imageGenerator.requestedTimeToleranceAfter = kCMTimeZero
         imageGenerator.appliesPreferredTrackTransform = true
         guard let image = try? imageGenerator.copyCGImage(at: time, actualTime: nil) else { return nil }
         return UIImage(cgImage: image)
