@@ -53,28 +53,33 @@
                                     <rect key="frame" x="0.0" y="0.0" width="121" height="104"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="VideoCell" translatesAutoresizingMaskIntoConstraints="NO" id="Yr4-h1-yfi">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agb-rn-3Ol" customClass="UIImageView">
                                             <rect key="frame" x="0.0" y="0.0" width="121" height="104"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playOverlay" translatesAutoresizingMaskIntoConstraints="NO" id="94R-x1-BWo">
-                                            <rect key="frame" x="38.5" y="30" width="44" height="44"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playOverlay" translatesAutoresizingMaskIntoConstraints="NO" id="94R-x1-BWo">
+                                                    <rect key="frame" x="38" y="30" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="GCh-n2-8y8"/>
+                                                        <constraint firstAttribute="height" constant="44" id="klk-qt-iGP"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="44" id="GCh-n2-8y8"/>
-                                                <constraint firstAttribute="height" constant="44" id="klk-qt-iGP"/>
+                                                <constraint firstItem="94R-x1-BWo" firstAttribute="centerX" secondItem="Agb-rn-3Ol" secondAttribute="centerX" id="9vv-Z5-yRa"/>
+                                                <constraint firstItem="94R-x1-BWo" firstAttribute="centerY" secondItem="Agb-rn-3Ol" secondAttribute="centerY" id="f8v-p6-QYS"/>
                                             </constraints>
-                                        </imageView>
+                                        </view>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="94R-x1-BWo" firstAttribute="centerY" secondItem="GfW-V3-q12" secondAttribute="centerY" id="06q-ZO-xVr"/>
-                                    <constraint firstAttribute="bottom" secondItem="Yr4-h1-yfi" secondAttribute="bottom" id="1gb-G6-nbj"/>
-                                    <constraint firstItem="Yr4-h1-yfi" firstAttribute="top" secondItem="GfW-V3-q12" secondAttribute="top" id="Mup-ku-Q7A"/>
-                                    <constraint firstAttribute="trailing" secondItem="Yr4-h1-yfi" secondAttribute="trailing" id="WXp-P5-G5M"/>
-                                    <constraint firstItem="Yr4-h1-yfi" firstAttribute="leading" secondItem="GfW-V3-q12" secondAttribute="leading" id="Y5G-Vm-HTJ"/>
-                                    <constraint firstItem="94R-x1-BWo" firstAttribute="centerX" secondItem="GfW-V3-q12" secondAttribute="centerX" id="fMZ-3I-O1H"/>
+                                    <constraint firstItem="Agb-rn-3Ol" firstAttribute="leading" secondItem="GfW-V3-q12" secondAttribute="leading" id="1gi-jp-Mi0"/>
+                                    <constraint firstAttribute="trailing" secondItem="Agb-rn-3Ol" secondAttribute="trailing" id="s8Z-3p-jtF"/>
+                                    <constraint firstItem="Agb-rn-3Ol" firstAttribute="top" secondItem="GfW-V3-q12" secondAttribute="top" id="vuC-uy-FUI"/>
+                                    <constraint firstAttribute="bottom" secondItem="Agb-rn-3Ol" secondAttribute="bottom" id="zdu-2N-G4z"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="imageView" destination="Yr4-h1-yfi" id="fVH-sf-wy2"/>
+                                    <outlet property="imageView" destination="Agb-rn-3Ol" id="zV3-83-jQg"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
