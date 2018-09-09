@@ -29,6 +29,11 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                           AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "4", ofType: "mp4")!)),
                           AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "5", ofType: "mp4")!)),
                           AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "6", ofType: "mp4")!))]
+    
+    private lazy var thumbnails: [UIImage?] = {
+        let thumbnailSize = CGSize(width: 300, height: 300)
+        return self.videos.map { Utilities.screenShot(fromAsset: $0, atTime: CMTimeMake(0, 1), size: thumbnailSize)}
+    }()
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return contentModes.count
@@ -47,10 +52,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCell", for: indexPath) as! VideoCell
-            let video = videos[(indexPath.row + 1) / 2 - 1]
-            let thumbnailSize = CGSize(width: cell.imageView.bounds.width * UIScreen.main.scale,
-                                       height: cell.imageView.bounds.height * UIScreen.main.scale)
-            cell.imageView.image = Utilities.screenShot(fromAsset: video, atTime: CMTimeMake(0, 1), size: thumbnailSize)
+            cell.imageView.image = thumbnails[(indexPath.row + 1) / 2 - 1]
             cell.imageView.contentMode = contentModes[indexPath.section]
             return cell
         }
@@ -73,13 +75,23 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         present(GalleryViewController(configuration: configuration), animated: true)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderView
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String,
+                                 at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+                                                                         withReuseIdentifier: "HeaderView",
+                                                                         for: indexPath) as! HeaderView
         headerView.titleLabel.text = contentModes[indexPath.section].name
         return headerView
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    override func willTransition(to newCollection: UITraitCollection,
+                                        with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView?.collectionViewLayout.invalidateLayout()
+    }
+
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.frame.width / 3 - 8
         return CGSize(width: cellWidth, height: cellWidth)
     }
