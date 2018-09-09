@@ -5,6 +5,7 @@ import AVFoundation
 public final class VideoViewController: AssetViewController {
     private var playerItem: AVPlayerItem
     private var player: AVPlayer?
+    private var playerOutput: AVPlayerItemVideoOutput!
     private var playerLayer: AVPlayerLayer!
     
     public init(imageView: UIImageView?, video: AVAsset) {
@@ -18,7 +19,7 @@ public final class VideoViewController: AssetViewController {
     
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        playerLayer?.frame = assetView.bounds
+        playerLayer?.frame = view.bounds
     }
     
     override public func viewDidLoad() {
@@ -36,7 +37,10 @@ public final class VideoViewController: AssetViewController {
     }
     
     func setupVideoLayer() {
+        let settings = [String(kCVPixelBufferPixelFormatTypeKey): NSNumber(value:kCVPixelFormatType_32BGRA)]
         player = AVPlayer(playerItem: playerItem)
+        playerOutput = AVPlayerItemVideoOutput(pixelBufferAttributes: settings)
+        playerItem.add(playerOutput)
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspect
         assetView.layer.addSublayer(playerLayer)
@@ -58,8 +62,8 @@ public final class VideoViewController: AssetViewController {
 extension VideoViewController: TransitionDismissable {
     var dismissAssetView: UIView { return assetView }
     var dismissImage: UIImage? {
-        let imageSize = CGSize(width: assetView.bounds.width * UIScreen.main.scale,
-                               height: assetView.bounds.height * UIScreen.main.scale)
-        return Utilities.screenShot(fromAsset: playerItem.asset, atTime: playerItem.currentTime(), size: imageSize)
+        guard let pixelBuffer = playerOutput.copyPixelBuffer(forItemTime: playerItem.currentTime(),
+                                                             itemTimeForDisplay: nil) else { return nil }
+        return Utilities.image(fromPixelBuffer: pixelBuffer)
     }
 }

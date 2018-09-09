@@ -1,6 +1,7 @@
 import QuartzCore
 import AVFoundation
 import UIKit
+import VideoToolbox
 
 public struct Utilities {
     public static func screenShot(fromAsset asset: AVAsset, atTime time: CMTime, size: CGSize) -> UIImage? {
@@ -11,6 +12,13 @@ public struct Utilities {
         imageGenerator.maximumSize = size
         guard let image = try? imageGenerator.copyCGImage(at: time, actualTime: nil) else { return nil }
         return UIImage(cgImage: image)
+    }
+    
+    static func image(fromPixelBuffer pixelBuffer: CVPixelBuffer) -> UIImage? {
+        var coreGraphicsImage: CGImage?
+        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, nil, &coreGraphicsImage)
+        guard let cgImage = coreGraphicsImage else { return nil }
+        return UIImage(cgImage: cgImage)
     }
     
     static func rect(forSize size: CGSize) -> CGRect {
