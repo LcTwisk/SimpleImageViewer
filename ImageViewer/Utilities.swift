@@ -21,6 +21,15 @@ public struct Utilities {
         return UIImage(cgImage: cgImage)
     }
     
+    static func zoomRect(forScale scale: CGFloat, center: CGPoint, inRect: CGRect) -> CGRect {
+        var zoomRect = CGRect.zero
+        zoomRect.size.height = inRect.size.height / scale
+        zoomRect.size.width  = inRect.size.width  / scale
+        zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
+        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
+        return zoomRect
+    }
+
     static func rect(forSize size: CGSize) -> CGRect {
         return CGRect(origin: .zero, size: size)
     }

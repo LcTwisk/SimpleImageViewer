@@ -81,7 +81,7 @@ private extension AssetViewController {
     func setupGestureRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.numberOfTapsRequired = 2
-        tapGestureRecognizer.addTarget(self, action: #selector(assetViewDoubleTapped))
+        tapGestureRecognizer.addTarget(self, action: #selector(assetViewDoubleTapped(_:)))
         assetView.addGestureRecognizer(tapGestureRecognizer)
         
         let panGestureRecognizer = UIPanGestureRecognizer()
@@ -90,11 +90,14 @@ private extension AssetViewController {
         assetView.addGestureRecognizer(panGestureRecognizer)
     }
     
-    @objc func assetViewDoubleTapped() {
+    @objc func assetViewDoubleTapped(_ recognizer: UITapGestureRecognizer) {
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         } else {
-            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
+            let zoomRect = Utilities.zoomRect(forScale: scrollView.maximumZoomScale,
+                                              center: recognizer.location(in: recognizer.view),
+                                              inRect: assetView.frame)
+            scrollView.zoom(to: zoomRect, animated: true)
         }
     }
 }
