@@ -5,7 +5,6 @@ public final class ImageViewController: AssetViewController {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    private var transitionHandler: ImageViewerTransitioningHandler?
     private var fromImageView: UIImageView?
     private var fromImage: UIImage?
     private var fromImageBlock: ImageBlock?
