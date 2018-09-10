@@ -1,7 +1,7 @@
 import XCTest
 
 class UtilitiesTests: XCTestCase {
-    fileprivate let screenRect = CGRect(x: 0, y: 0, width: 640, height: 960)
+    private let screenRect = CGRect(x: 0, y: 0, width: 640, height: 960)
     
     func testRectForSize() {
         let square = CGSize(width: 600, height: 600)

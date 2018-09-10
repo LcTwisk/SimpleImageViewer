@@ -1,7 +1,35 @@
 import QuartzCore
 import AVFoundation
+import UIKit
+import VideoToolbox
 
-struct Utilities {
+public struct Utilities {
+    public static func screenShot(fromAsset asset: AVAsset, atTime time: CMTime, size: CGSize) -> UIImage? {
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.requestedTimeToleranceBefore = kCMTimeZero
+        imageGenerator.requestedTimeToleranceAfter = kCMTimeZero
+        imageGenerator.appliesPreferredTrackTransform = true
+        imageGenerator.maximumSize = size
+        guard let image = try? imageGenerator.copyCGImage(at: time, actualTime: nil) else { return nil }
+        return UIImage(cgImage: image)
+    }
+    
+    static func image(fromPixelBuffer pixelBuffer: CVPixelBuffer) -> UIImage? {
+        var coreGraphicsImage: CGImage?
+        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, nil, &coreGraphicsImage)
+        guard let cgImage = coreGraphicsImage else { return nil }
+        return UIImage(cgImage: cgImage)
+    }
+    
+    static func zoomRect(forScale scale: CGFloat, center: CGPoint, inRect: CGRect) -> CGRect {
+        var zoomRect = CGRect.zero
+        zoomRect.size.height = inRect.size.height / scale
+        zoomRect.size.width  = inRect.size.width  / scale
+        zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
+        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
+        return zoomRect
+    }
+
     static func rect(forSize size: CGSize) -> CGRect {
         return CGRect(origin: .zero, size: size)
     }

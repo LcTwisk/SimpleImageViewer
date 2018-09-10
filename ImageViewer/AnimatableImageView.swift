@@ -1,7 +1,7 @@
 import UIKit
 
 final class AnimatableImageView: UIView {
-    fileprivate let imageView = UIImageView()
+    private let imageView = UIImageView()
     
     override var contentMode: UIViewContentMode {
         didSet { update() }
