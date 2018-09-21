@@ -59,7 +59,7 @@ extension ImageViewerController: UIGestureRecognizerDelegate {
 
 private extension ImageViewerController {
     func setupScrollView() {
-        scrollView.decelerationRate = UIScrollViewDecelerationRateFast
+        scrollView.decelerationRate = .fast
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = true
     }
