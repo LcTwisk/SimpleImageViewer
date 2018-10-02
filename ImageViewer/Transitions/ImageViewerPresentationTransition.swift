@@ -27,7 +27,7 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         fadeView.alpha = 0.0
         
         toView.frame = containerView.bounds
-        toView.isHidden = true
+//        toView.isHidden = true
         // Do not hide the view by setting its 'isHidden' property. A UIStackView removes hidden subviews from the visual hierarchy. Therefore, the layout jumps when switched to visible after dismissal.
         //        fromImageView.isHidden = true
         fromImageView.alpha = 0
