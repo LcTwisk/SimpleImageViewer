@@ -59,6 +59,8 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         animatableImageview.frame = fromSuperView.convert(fromImageView.frame, to: nil)
         animatableImageview.contentMode = .scaleAspectFit
         
+        
+        // Do not hide the view by setting its 'isHidden' property. A UIStackView removes hidden subviews from the visual hierarchy. Therefore, the layout jumps when switched to visible after dismissal.
 //        fromView?.isHidden = true
         fromView?.alpha = 0
         fadeView.frame = containerView.bounds
@@ -75,6 +77,8 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        options: .curveEaseInOut,
                        animations: apply(state: .start),
                        completion: { _ in
+                        
+                        // Do not hide the view by setting its 'isHidden' property. A UIStackView removes hidden subviews from the visual hierarchy. Therefore, the layout jumps when switched to visible after dismissal.
 //                        self.fromView?.isHidden = false
                         self.fromView?.alpha = 1
                         self.toImageView.alpha = 1
@@ -94,7 +98,7 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                         self.toImageView.alpha = 1
                         self.fadeView.removeFromSuperview()
                         self.animatableImageview.removeFromSuperview()
-//                        self.fromView?.removeFromSuperview()
+                        self.fromView?.removeFromSuperview()
                         self.fromView?.alpha = 0
                         self.transitionContext?.completeTransition(true)
         })
