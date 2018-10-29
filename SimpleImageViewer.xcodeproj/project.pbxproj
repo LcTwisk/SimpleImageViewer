@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A02EE5B91EF16E54000EAB41 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A02EE5B81EF16E54000EAB41 /* Info.plist */; };
 		A02EE5CF1EF172C8000EAB41 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02EE5CD1EF172C3000EAB41 /* Utilities.swift */; };
 		A02EE5D71EF1897D000EAB41 /* UtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02EE5D61EF1897D000EAB41 /* UtilitiesTests.swift */; };
 		A02EE5D91EF1897D000EAB41 /* SimpleImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF70A71EDC5B1400109F6E /* SimpleImageViewer.framework */; };
@@ -298,7 +297,7 @@
 					};
 					A0BF70A61EDC5B1400109F6E = {
 						CreatedOnToolsVersion = 8.3.2;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -335,7 +334,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A02EE5B91EF16E54000EAB41 /* Info.plist in Resources */,
 				A0BF70B91EDC759A00109F6E /* Main.storyboard in Resources */,
 				A07E76DE1ECC94A400B77D46 /* Assets.xcassets in Resources */,
 			);
@@ -419,7 +417,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.afrogleap.SimpleImageViewerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -431,7 +429,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.afrogleap.SimpleImageViewerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -557,7 +555,7 @@
 				PROVISIONING_PROFILE = "d5b8f7cb-0120-427a-9ff1-14d28ee0046f";
 				PROVISIONING_PROFILE_SPECIFIER = "aFrogleap Wildcard Development";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -574,7 +572,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -596,8 +594,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -621,8 +618,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
