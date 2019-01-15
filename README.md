@@ -80,6 +80,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 }
 
 ```
+Storyboard references need a deployment target of at least iOS 9.
 
 ## Communication
 - If you **found a bug**, open an issue.
