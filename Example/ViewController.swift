@@ -45,7 +45,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             config.imageView = cell.imageView
         }
         
-        present(ImageViewerController(configuration: configuration), animated: true)
+        present(ImageViewerController.imageViewerController(configuration: configuration), animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

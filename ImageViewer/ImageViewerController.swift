@@ -5,35 +5,63 @@ public final class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var imageView: UIImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet fileprivate var closeButton: UIButton!
+
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
-    fileprivate let configuration: ImageViewerConfiguration?
+    public var configuration: ImageViewerConfiguration?
     
     public override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    public init(configuration: ImageViewerConfiguration?) {
-        self.configuration = configuration
-        super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
-        
+    public static func imageViewerController(configuration: ImageViewerConfiguration?) -> ImageViewerController {
+        let storyboard = UIStoryboard(name: "ImageViewerController", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ImageViewerController") as! ImageViewerController
+        viewController.configuration = configuration
+        return viewController
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
         modalPresentationCapturesStatusBarAppearance = true
     }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override public func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = configuration?.imageView?.image ?? configuration?.image
-        
+
+        guard let config = configuration else {
+            fatalError("configuration has not been set")
+        }
+
+        if !config.showCloseButton {
+            closeButton.isHidden = true
+        }
+
+        loadImage()
+
         setupScrollView()
         setupGestureRecognizers()
         setupTransitions()
-        setupActivityIndicator()
+
+        if let color = configuration?.backgroundColor {
+            view.setBackgroundColors(color)
+        }
+    }
+
+    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        resetZoomScale()
+    }
+
+    public func reloadImage() {
+        resetZoomScale()
+        loadImage()
+    }
+
+    public func resetZoomScale() {
+        scrollView.zoomScale = scrollView.minimumZoomScale
     }
 }
 
@@ -57,7 +85,24 @@ extension ImageViewerController: UIGestureRecognizerDelegate {
     }
 }
 
+private extension UIView {
+    func setBackgroundColors(_ color: UIColor) {
+        for subview in subviews {
+            subview.backgroundColor = .clear
+        }
+        backgroundColor = color
+    }
+}
+
 private extension ImageViewerController {
+    func loadImage() {
+        if configuration?.imageBlock == nil {
+            imageView.image = configuration?.imageView?.image ?? configuration?.image
+        } else {
+            setupActivityIndicator()
+        }
+    }
+
     func setupScrollView() {
         scrollView.decelerationRate = UIScrollView.DecelerationRate.fast
         scrollView.alwaysBounceVertical = true
@@ -86,10 +131,11 @@ private extension ImageViewerController {
         guard let block = configuration?.imageBlock else { return }
         activityIndicator.startAnimating()
         block { [weak self] image in
-            guard let image = image else { return }
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
-                self?.imageView.image = image
+                if image != nil {
+                    self?.imageView.image = image
+                }
             }
         }
     }
@@ -118,7 +164,7 @@ private extension ImageViewerController {
     
     @objc func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
         guard transitionHandler != nil else { return }
-            
+
         let translation = recognizer.translation(in: imageView)
         let velocity = recognizer.velocity(in: imageView)
         
