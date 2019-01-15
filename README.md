@@ -63,7 +63,7 @@ present(imageViewerController, animated: true)
 ### Create from storyboard
 First step is to place a new storyboard reference on your app's storyboard using "ImageViewerController" as `Storyboard` and "ImageViewerController" as `Referenced ID`. After that, you can connect your segue to that reference (either directly or using `embed` segues for container views).
 
-![SimpleImageViewer](https://github.com/aFrogleap/SimpleImageViewer/raw/development/Documentation/storyboard.png)
+![Storyboard](https://raw.githubusercontent.com/swesteme/SimpleImageViewer/master/Documentation/storyboard.png)
 
 To configure your new view controller you then simply add the following code (using your segue's ID as a constant):
 
