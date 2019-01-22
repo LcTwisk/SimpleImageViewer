@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.platform = :ios
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.swift_version = "4.2"
   s.name = "SimpleImageViewer"
   s.summary = "A snappy image viewer with zoom and interactive dismissal transition."
