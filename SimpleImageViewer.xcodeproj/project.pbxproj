@@ -28,10 +28,10 @@
 		A0BF70B91EDC759A00109F6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07E76DA1ECC94A400B77D46 /* Main.storyboard */; };
 		A0BF70BB1EDC75AE00109F6E /* ImageViewer-Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07E77231ECF289800B77D46 /* ImageViewer-Assets.xcassets */; };
 		A0BF70BC1EDC767B00109F6E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07E77211ECF1FC100B77D46 /* HeaderView.swift */; };
+		D31D3CE62227C70100277194 /* ImageViewerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3DB732921C2F719007D3809 /* ImageViewerController.storyboard */; };
 		D3C7594821DA49D000193585 /* ImageViewer-Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07E77231ECF289800B77D46 /* ImageViewer-Assets.xcassets */; };
 		D3DB732621C2EE0F007D3809 /* ChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB732521C2EE0F007D3809 /* ChoiceViewController.swift */; };
 		D3DB732821C2F2DF007D3809 /* EmbeddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB732721C2F2DF007D3809 /* EmbeddingViewController.swift */; };
-		D3DB732A21C2F719007D3809 /* ImageViewerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3DB732921C2F719007D3809 /* ImageViewerController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,7 +342,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C7594821DA49D000193585 /* ImageViewer-Assets.xcassets in Resources */,
-				D3DB732A21C2F719007D3809 /* ImageViewerController.storyboard in Resources */,
 				A0BF70B91EDC759A00109F6E /* Main.storyboard in Resources */,
 				A07E76DE1ECC94A400B77D46 /* Assets.xcassets in Resources */,
 			);
@@ -352,6 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D31D3CE62227C70100277194 /* ImageViewerController.storyboard in Resources */,
 				A0BF70BB1EDC75AE00109F6E /* ImageViewer-Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,7 +598,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/ImageViewer/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.afrogleap.ImageViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -622,7 +622,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/ImageViewer/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.afrogleap.ImageViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

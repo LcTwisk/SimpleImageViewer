@@ -15,7 +15,7 @@ public final class ImageViewerController: UIViewController {
     }
     
     public static func imageViewerController(configuration: ImageViewerConfiguration?) -> ImageViewerController {
-        let storyboard = UIStoryboard(name: "ImageViewerController", bundle: nil)
+        let storyboard = UIStoryboard(name: "ImageViewerController", bundle: Bundle(for: ImageViewerController.self))
         let viewController = storyboard.instantiateViewController(withIdentifier: "ImageViewerController") as! ImageViewerController
         viewController.configuration = configuration
         return viewController

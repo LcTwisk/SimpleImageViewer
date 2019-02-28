@@ -205,7 +205,7 @@
         <!--ImageViewerController-->
         <scene sceneID="h5W-ch-ZHH">
             <objects>
-                <viewControllerPlaceholder storyboardName="ImageViewerController" referencedIdentifier="ImageViewerController" id="8eF-Ng-nW4" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="ImageViewerController" bundleIdentifier="com.afrogleap.ImageViewer" referencedIdentifier="ImageViewerController" id="8eF-Ng-nW4" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EyD-5H-J6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="969" y="48"/>
