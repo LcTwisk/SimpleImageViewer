@@ -2,7 +2,7 @@ import UIKit
 import SimpleImageViewer
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    fileprivate let contentModes: [UIViewContentMode] = [.scaleToFill,
+    fileprivate let contentModes: [UIView.ContentMode] = [.scaleToFill,
                                                          .scaleAspectFit,
                                                          .scaleAspectFill,
                                                          .center,
@@ -49,7 +49,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderView
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderView
         headerView.titleLabel.text = contentModes[indexPath.section].name
         return headerView
     }
@@ -60,7 +60,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 }
 
-private extension UIViewContentMode {
+private extension UIView.ContentMode {
     var name: String {
         switch self {
         case .scaleToFill:
