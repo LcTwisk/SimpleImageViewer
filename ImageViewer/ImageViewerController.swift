@@ -62,6 +62,8 @@ private extension ImageViewerController {
         scrollView.decelerationRate = UIScrollView.DecelerationRate.fast
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = true
+        
+        configuration?.setupScrollViewBlock?(scrollView)
     }
     
     func setupGestureRecognizers() {
