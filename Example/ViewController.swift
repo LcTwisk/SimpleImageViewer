@@ -89,6 +89,9 @@ private extension UIView.ContentMode {
             return "bottomLeft"
         case .bottomRight:
             return "bottomRight"
+        @unknown default:
+            assertionFailure("Unsupported UIView.ContentMode value!")
+            return ""
         }
     }
 }
