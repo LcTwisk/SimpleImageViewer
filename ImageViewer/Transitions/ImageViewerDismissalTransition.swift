@@ -59,7 +59,10 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         animatableImageview.frame = fromSuperView.convert(fromImageView.frame, to: nil)
         animatableImageview.contentMode = .scaleAspectFit
         
-        fromView?.isHidden = true
+        
+        // Do not hide the view by setting its 'isHidden' property. A UIStackView removes hidden subviews from the visual hierarchy. Therefore, the layout jumps when switched to visible after dismissal.
+//        fromView?.isHidden = true
+        fromView?.alpha = 0
         fadeView.frame = containerView.bounds
         fadeView.backgroundColor = .black
         
@@ -74,7 +77,11 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        options: .curveEaseInOut,
                        animations: apply(state: .start),
                        completion: { _ in
-                        self.fromView?.isHidden = false
+                        
+                        // Do not hide the view by setting its 'isHidden' property. A UIStackView removes hidden subviews from the visual hierarchy. Therefore, the layout jumps when switched to visible after dismissal.
+//                        self.fromView?.isHidden = false
+                        self.fromView?.alpha = 1
+                        self.toImageView.alpha = 1
                         self.animatableImageview.removeFromSuperview()
                         self.fadeView.removeFromSuperview()
                         self.transitionContext?.completeTransition(false)
@@ -88,9 +95,11 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
                        animations: apply(state: .end),
                        completion: { _ in
                         self.toImageView.isHidden = false
+                        self.toImageView.alpha = 1
                         self.fadeView.removeFromSuperview()
                         self.animatableImageview.removeFromSuperview()
                         self.fromView?.removeFromSuperview()
+                        self.fromView?.alpha = 0
                         self.transitionContext?.completeTransition(true)
         })
     }
