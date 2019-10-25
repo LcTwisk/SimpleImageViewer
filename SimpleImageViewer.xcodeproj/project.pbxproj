@@ -555,6 +555,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DZYTXHVP4K;
 				INFOPLIST_FILE = "$(SRCROOT)/ImageViewer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -574,6 +575,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DZYTXHVP4K;
 				INFOPLIST_FILE = "$(SRCROOT)/ImageViewer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

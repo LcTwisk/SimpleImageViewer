@@ -2,10 +2,11 @@ import UIKit
 import AVFoundation
 
 public final class ImageViewerController: UIViewController {
-    @IBOutlet fileprivate var scrollView: UIScrollView!
-    @IBOutlet fileprivate var imageView: UIImageView!
-    @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet fileprivate weak var scrollView: UIScrollView!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var shareButton: UIButton!
+
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
     fileprivate let configuration: ImageViewerConfiguration?
     
@@ -98,6 +99,13 @@ private extension ImageViewerController {
     
     @IBAction func closeButtonPressed() {
         dismiss(animated: true)
+    }
+
+    @IBAction func share() {
+        guard let image = imageView.image else { return }
+        let items = [image]
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(ac, animated: true)
     }
     
     @objc func imageViewDoubleTapped(recognizer: UITapGestureRecognizer) {
