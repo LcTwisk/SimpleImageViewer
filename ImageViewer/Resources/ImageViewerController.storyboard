@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kZj-RK-OKA">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ImageViewerController-->
+        <scene sceneID="hR8-hj-Ztr">
+            <objects>
+                <viewController storyboardIdentifier="ImageViewerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kZj-RK-OKA" userLabel="ImageViewerController" customClass="ImageViewerController" customModule="SimpleImageViewer" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xMj-hu-ovV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" maximumZoomScale="6" translatesAutoresizingMaskIntoConstraints="NO" id="Q9r-OG-GXk">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0iu-Oi-AF0">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="0iu-Oi-AF0" secondAttribute="bottom" id="0Oe-bm-8xl"/>
+                                    <constraint firstItem="0iu-Oi-AF0" firstAttribute="leading" secondItem="Q9r-OG-GXk" secondAttribute="leading" id="0nB-5g-cvJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="0iu-Oi-AF0" secondAttribute="trailing" id="HRO-x2-zwG"/>
+                                    <constraint firstItem="0iu-Oi-AF0" firstAttribute="top" secondItem="Q9r-OG-GXk" secondAttribute="top" id="oZ8-YS-rWi"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="kZj-RK-OKA" id="RtE-r4-x9G"/>
+                                </connections>
+                            </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Poi-jR-Hpv">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufl-Cy-QEF">
+                                <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="IaR-c8-3Kz"/>
+                                    <constraint firstAttribute="height" constant="44" id="XuX-4G-9fY"/>
+                                </constraints>
+                                <state key="normal" image="closeButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButtonPressed" destination="kZj-RK-OKA" eventType="touchUpInside" id="aAX-fr-D8m"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5fz-PG-yOy" firstAttribute="trailing" secondItem="Q9r-OG-GXk" secondAttribute="trailing" id="185-Mt-Beq"/>
+                            <constraint firstItem="5fz-PG-yOy" firstAttribute="bottom" secondItem="Q9r-OG-GXk" secondAttribute="bottom" id="C6z-o2-xdi"/>
+                            <constraint firstItem="Poi-jR-Hpv" firstAttribute="centerX" secondItem="5fz-PG-yOy" secondAttribute="centerX" id="Iy4-VA-2lE"/>
+                            <constraint firstItem="ufl-Cy-QEF" firstAttribute="top" secondItem="xMj-hu-ovV" secondAttribute="topMargin" id="T3f-Eh-Jjc"/>
+                            <constraint firstItem="0iu-Oi-AF0" firstAttribute="height" secondItem="5fz-PG-yOy" secondAttribute="height" id="bJZ-Rc-5xf"/>
+                            <constraint firstItem="0iu-Oi-AF0" firstAttribute="width" secondItem="xMj-hu-ovV" secondAttribute="width" id="gaa-My-BoV"/>
+                            <constraint firstItem="Poi-jR-Hpv" firstAttribute="centerY" secondItem="xMj-hu-ovV" secondAttribute="centerY" id="kh0-NS-H2G"/>
+                            <constraint firstItem="Q9r-OG-GXk" firstAttribute="leading" secondItem="5fz-PG-yOy" secondAttribute="leading" id="lWw-kU-pPy"/>
+                            <constraint firstItem="ufl-Cy-QEF" firstAttribute="leading" secondItem="5fz-PG-yOy" secondAttribute="leading" id="o66-bj-QTO"/>
+                            <constraint firstItem="Q9r-OG-GXk" firstAttribute="top" secondItem="5fz-PG-yOy" secondAttribute="top" id="y9S-jd-Pas"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5fz-PG-yOy"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Poi-jR-Hpv" id="jJx-U5-VGd"/>
+                        <outlet property="closeButton" destination="ufl-Cy-QEF" id="XzE-R4-1hO"/>
+                        <outlet property="imageView" destination="0iu-Oi-AF0" id="DRT-dP-WD0"/>
+                        <outlet property="scrollView" destination="Q9r-OG-GXk" id="nml-is-CPi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LTa-51-cZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="closeButton" width="13" height="13"/>
+    </resources>
+</document>
