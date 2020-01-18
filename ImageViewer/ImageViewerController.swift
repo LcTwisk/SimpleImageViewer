@@ -13,6 +13,9 @@ public final class ImageViewerController: UIViewController {
         return true
     }
     
+    let iosDeviceVersion = (UIDevice.current.systemVersion as NSString).floatValue
+    var shouldDismissImageView = true
+    
     public init(configuration: ImageViewerConfiguration?) {
         self.configuration = configuration
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
@@ -34,6 +37,7 @@ public final class ImageViewerController: UIViewController {
         setupGestureRecognizers()
         setupTransitions()
         setupActivityIndicator()
+        checkOverIosDeviceVersion()
     }
 }
 
@@ -108,7 +112,7 @@ private extension ImageViewerController {
             zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
             return zoomRect
         }
-
+        
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         } else {
@@ -118,7 +122,7 @@ private extension ImageViewerController {
     
     @objc func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
         guard transitionHandler != nil else { return }
-            
+        
         let translation = recognizer.translation(in: imageView)
         let velocity = recognizer.velocity(in: imageView)
         
@@ -134,11 +138,23 @@ private extension ImageViewerController {
             transitionHandler?.dismissInteractively = false
             let percentage = abs(translation.y + velocity.y) / imageView.bounds.height
             if percentage > 0.25 {
-                transitionHandler?.dismissalInteractor.finish()
+                if (shouldDismissImageView == true) {
+                    transitionHandler?.dismissalInteractor.finish()
+                }else {
+                    transitionHandler?.dismissalInteractor.cancel()
+                }
             } else {
                 transitionHandler?.dismissalInteractor.cancel()
             }
         default: break
+        }
+    }
+    
+    func checkOverIosDeviceVersion () {
+        if (iosDeviceVersion >= 13) {
+            shouldDismissImageView = false
+        }else {
+            print(iosDeviceVersion)
         }
     }
 }
