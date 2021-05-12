@@ -9,6 +9,6 @@ let package = Package(
     dependencies : [
     ],
     targets: [
-       .target(name: "SimpleImageViewer", dependencies: []),
+       .target(name: "SimpleImageViewer", dependencies: [], path: "ImageViewer"),
     ]
 )
