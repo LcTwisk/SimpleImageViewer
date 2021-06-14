@@ -29,7 +29,7 @@ public final class ImageViewerController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = configuration?.imageView?.image ?? configuration?.image
+        imageView.image = configuration?.image ?? configuration?.imageView?.image
         
         setupScrollView()
         setupGestureRecognizers()
