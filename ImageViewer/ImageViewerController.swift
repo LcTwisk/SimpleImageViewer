@@ -5,6 +5,12 @@ public final class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var imageView: UIImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate var closeButton: UIButton! {
+        didSet {
+            let closeImage = UIImage(named: "closeButton", in: Bundle.module, compatibleWith: nil)
+            closeButton.setImage(closeImage, for: .normal)
+        }
+    }
     
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
     fileprivate let configuration: ImageViewerConfiguration?
@@ -15,7 +21,7 @@ public final class ImageViewerController: UIViewController {
     
     public init(configuration: ImageViewerConfiguration?) {
         self.configuration = configuration
-        super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
+        super.init(nibName: "ImageViewerController", bundle: .module)
         
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
