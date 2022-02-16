@@ -105,6 +105,7 @@ private extension ImageViewerController {
         guard let image = imageView.image else { return }
         let items = [image]
         let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        ac.popoverPresentationController?.sourceView = shareButton
         present(ac, animated: true)
     }
     
